@@ -1,0 +1,53 @@
+.main-menu {
+  display: flex;
+  height: 100vh;
+}
+
+.side-menu {
+  flex: 1;
+  background-color: var(--color-secondary);
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.title-section {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary);
+}
+
+.title-section h1 {
+  font-size: 6rem;
+  font-family: "My Title Font", sans-serif;
+}
+
+.clear-button {
+  color: white; /* Set text color to white */
+  font-family: "My UI Font", sans-serif;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  padding: 20px 20px; /* Adjust padding as needed */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+  font-size: 32px; /* Adjust font size as needed */
+}
+
+/* Optional: Add styles for when the button is hovered or focused */
+.clear-button:hover{
+  background-color: rgba(0, 0, 0, 0.1); /* Slight background color on hover */
+  outline: none; /* Removes the default outline on focus */
+}
+
+@font-face {
+  font-family: "My Title Font";
+  src: url("../fonts/ccapshad.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "My UI Font";
+  src: url("../fonts/Fredoka-SemiBold.ttf") format("truetype");
+}

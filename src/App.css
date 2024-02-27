@@ -1,0 +1,13 @@
+/* src/index.css or src/App.css */
+:root {
+  --color-primary: #dcf2f1;
+  --color-secondary: #7fc7d9;
+  --color-tertiary: #365486;
+  /* Define more CSS variables as needed */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* This will hide the scrollbar, use it with caution */
+}

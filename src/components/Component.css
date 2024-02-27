@@ -1,0 +1,31 @@
+/* Column.css */
+
+.column-toplevel {
+    display: flex;
+    flex-direction: column-reverse; /* Stack the pieces from the bottom up */
+    justify-content: start; /* Aligns the pieces to the bottom of the column */
+    align-items: center;
+    width: 70px; /* Adjusted to fit the circle size and margin */
+    height: 420px; /* Adjusted based on circle size, margin, and number of rows */
+    padding: 5px;
+    border: 1px solid transparent; /* Transparent border to maintain layout without visual border */
+    position: relative; /* Needed for absolute positioning of game pieces */
+  }
+  
+  .column-toplevel button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: 100%; /* Button should fill the column to register clicks/hover */
+    width: 100%; /* Adjust the width as needed */
+    position: absolute; /* Overlay the button on the column */
+    z-index: 2; /* Ensure the button is above the pieces for click/hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+  
+  /* Hover effect for the column (optional) */
+  .column-toplevel:hover {
+    border-color: #ccc; /* Change border color on hover */
+  }
+  

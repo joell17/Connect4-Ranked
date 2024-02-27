@@ -1,0 +1,22 @@
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(139, 139, 139); /* Blue background for the board */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners for the board */
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .circle {
+    width: 55px; /* Increase diameter of the circles */
+    height: 55px; /* Increase diameter of the circles */
+    background-color: var(--color-primary); /* White background for the circles */
+    border-radius: 50%; /* Makes the divs circular */
+    margin: 7.5px; /* Adjust spacing between the circles */
+  }
+  
