@@ -44,10 +44,10 @@
 
 @font-face {
   font-family: "My Title Font";
-  src: url("../fonts/ccapshad.ttf") format("truetype");
+  src: url("../../fonts/ccapshad.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "My UI Font";
-  src: url("../fonts/Fredoka-SemiBold.ttf") format("truetype");
+  src: url("../../fonts/Fredoka-SemiBold.ttf") format("truetype");
 }

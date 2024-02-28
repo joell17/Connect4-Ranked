@@ -31,11 +31,11 @@
 
 /* Specific styles for player pieces and ghost pieces */
 .Player1 {
-    background-image: url('../images/red.png');
+    background-image: url('../../images/red.png');
 }
 
 .Player2 {
-    background-image: url('../images/yellow.png');
+    background-image: url('../../images/yellow.png');
 }
 
 .ghost {

@@ -1,8 +1,8 @@
 import React from "react";
 import "./LocalGame.css";
-import Board from './Board'
-import GameMenu from './GameMenu'
-import { GameProvider } from "./GameProvider";
+import Board from '../Board/Board'
+import GameMenu from '../GameMenu/GameMenu'
+import { GameProvider } from "../../utils/GameProvider";
 
 const LocalGame = () => {
     // I want this component to keep track of whose turn it is

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Column.css";
-import GamePiece from "./GamePiece";
-import Slot from "./Slot";
-import { useGameContext } from "./GameProvider";
+import GamePiece from "../GamePiece/GamePiece";
+import Slot from "../Slot/Slot";
+import { useGameContext } from "../../utils/GameProvider";
 
 const Column = ({ columnIndex, columnHook }) => {
   const [gamePieces, setGamePieces] = useState([]);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Board.css';
-import BoardData from './BoardData';
-import Column from './Column';
-import { useGameContext } from './GameProvider';
+import BoardData from '../../utils/BoardData';
+import Column from '../Column/Column';
+import { useGameContext } from '../../utils/GameProvider';
 
 const Board = () => {
   const {togglePlayer} = useGameContext();
