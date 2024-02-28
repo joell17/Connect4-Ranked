@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./GameMenu.css";
+import { useGameContext } from "../../utils/GameProvider";
 
 const GameMenu = () => {
-    const [timeLeft, setTimeLeft] = useState(15);
+    const {currentPlayer} = useGameContext();
+    const [timeLeft, setTimeLeft] = useState(30);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -18,7 +20,12 @@ const GameMenu = () => {
         return () => {
             clearInterval(timer);
         }
-    }, [timeLeft])
+    }, [timeLeft]);
+
+    useEffect(() => {
+        // Reset timer on new turn
+        setTimeLeft(30);
+    }, [currentPlayer])
 
     return (
         <div className="game-menu">
