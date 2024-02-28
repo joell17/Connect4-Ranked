@@ -37,6 +37,17 @@ The components that make it are the following:  DONE
     - That's it for the local version
 - Set up gh for version management
 
+(Progress Report:)
+Half-way done. I've set up the game board and got it working I think.
+Here's some things I have to come back to:
+- Removing of empty slots
+- The use of useState with the boardData instance
+- Make the animation look a bit nicer
+- Get a more pastel red for the red piece
+- Proper testing of everything
+- Reorganize directory structure
+
+
 
 Questions:
 - Is the structure of this okay?

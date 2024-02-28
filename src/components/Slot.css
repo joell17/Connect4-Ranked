@@ -1,0 +1,8 @@
+.slot {
+    width: var(--game-piece-dim);
+    height: var(--game-piece-dim);
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    margin: 7.5px;
+  }
+  

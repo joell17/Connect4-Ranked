@@ -12,11 +12,3 @@
     display: flex;
   }
   
-  .circle {
-    width: 55px; /* Increase diameter of the circles */
-    height: 55px; /* Increase diameter of the circles */
-    background-color: var(--color-primary); /* White background for the circles */
-    border-radius: 50%; /* Makes the divs circular */
-    margin: 7.5px; /* Adjust spacing between the circles */
-  }
-  

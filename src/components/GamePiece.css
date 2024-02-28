@@ -1,36 +1,33 @@
 @keyframes fallAnimation {
     0% {
-        top: -100%;
+        bottom: 120%;
         /* Adjust as necessary to position above the board */
     }
 
     100% {
-        top: var(--stopPosition);
+        bottom: var(--stopPosition);
         /* This will be dynamically set in the style attribute */
     }
 }
 
 .game-piece {
     position: absolute;
-    transition: top 0.5s ease-in;
+    transition: top 0.25s ease-in;
     /* Smooth transition for the falling effect */
     /* Position it within the column */
-    top: 0;
-    left: 0;
-    right: 0;
-    /* Other styling for the piece */
-    width: 100%;
-    /* Assuming this is the size of the hole */
-    height: 100%;
-    /* Assuming this is the size of the hole */
-    background-size: contain;
+    width: var(--game-piece-dim);
+    height: var(--game-piece-dim);
+    /* Reduce the size of the piece */
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 50%;
+    margin: 7.5px;
 }
 
 .game-piece.falling {
     animation: fallAnimation 0.5s ease-in forwards; /* Use forwards to maintain the final state */
-  }
+}
 
 /* Specific styles for player pieces and ghost pieces */
 .Player1 {

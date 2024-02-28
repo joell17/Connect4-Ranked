@@ -1,0 +1,23 @@
+.column-toplevel {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse; /* Stack the pieces from the bottom up */
+  align-items: center; /* Center the pieces within the column */
+  justify-content: flex-start; /* Align the pieces to the bottom */
+  width: var(--game-piece-dim); /* Match the width of the circles */
+  height: var(--column-height);
+  margin: 0 7.5px; /* Match the margin of the circles */
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%; /* Ensure the button fills the column */
+  height: 100%; /* Ensure the button fills the column */
+  display: flex;
+  flex-direction: column-reverse; /* Stack the pieces from the bottom up */
+  align-items: center; /* Center the pieces within the column */
+}
+
+/* Add any additional styles for the game pieces if needed */

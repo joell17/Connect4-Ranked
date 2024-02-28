@@ -1,10 +1,19 @@
-class Board {
+class BoardData {
     static MAX_STACK_HEIGHT = 6;
   
     constructor(winHook) {
       this.grid = Array.from({ length: 7 }, () => []); // Array of 7 stacks
       this.currentPlayer = 'r'; // 'r' for red, 'b' for blue
       this.winHook = winHook;
+    }
+
+    clone() {
+      const clone = new BoardData();
+      clone.grid = this.grid;
+      clone.currentPlayer = this.currentPlayer;
+      clone.winHook = this.winHook;
+
+      return clone;
     }
   
     reset() {
@@ -17,7 +26,7 @@ class Board {
     }
   
     placePiece(x) {
-      if (this.inBounds(x, this.grid) && this.grid[x].length < Board.MAX_STACK_HEIGHT) {
+      if (this.inBounds(x, this.grid) && this.grid[x].length < BoardData.MAX_STACK_HEIGHT) {
         this.grid[x].push(this.currentPlayer); // Place the piece
   
         if (this.checkWin(x, this.grid[x].length - 1)) {
@@ -43,7 +52,7 @@ class Board {
     getNextBlankSpot(column) {
       if (this.inBounds(column, this.grid)) {
         const nextBlankSpot = this.grid[column].length;
-        return nextBlankSpot < Board.MAX_STACK_HEIGHT ? nextBlankSpot : null;
+        return nextBlankSpot < BoardData.MAX_STACK_HEIGHT ? nextBlankSpot : null;
       }
     }
   
@@ -97,5 +106,5 @@ class Board {
     }
   }
   
-  export default Board;
+  export default BoardData;
   

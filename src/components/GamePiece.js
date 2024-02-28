@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './GamePiece.css';
-import { useGameContext } from './GameProvider';
 
-const GamePiece = ({isGhost, stopPosition }) => {
+const GamePiece = ({player, isGhost, stopPosition }) => {
   // You don't need `isFalling` prop as you can derive it from `stopPosition`
   const [falling, setFalling] = useState(false);
-  const {currentPlayer} = useGameContext();
 
   useEffect(() => {
     if (stopPosition !== null) {
@@ -13,7 +11,7 @@ const GamePiece = ({isGhost, stopPosition }) => {
     }
   }, [stopPosition]);
 
-  const className = `game-piece ${currentPlayer} ${isGhost ? 'ghost' : ''} ${falling ? 'falling' : ''}`;
+  const className = `game-piece ${player} ${isGhost ? 'ghost' : ''} ${falling ? 'falling' : ''}`;
   
   // Use inline style to dynamically set the `--stopPosition` CSS variable
   const style = {

@@ -1,46 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Board.css';
-import BoardData from './BoardData'
-import { useState } from 'react';
+import BoardData from './BoardData';
+import Column from './Column';
+import { useGameContext } from './GameProvider';
 
 const Board = () => {
-  const rows = 6;
+  const {togglePlayer} = useGameContext();
   const columns = 7;
-  const board = [];
 
-  const winFunc = () => {
+  const winHook = () => {
     console.log("You win");
     // Add additional win logic here
   };
-  const [boardData, setBoardData] = useState(new BoardData(winFunc));
+
+  const [boardData, _] = useState(new BoardData(winHook));  // This feels very wrong, but it works
 
   // Called when a column is clicked
   const columnHook = (columnIndex) => {
-    const newBoardData = { ...boardData };
-    if (newBoardData.placePiece(columnIndex)) {
-      // If the move was valid and the piece was placed
-      setBoardData(newBoardData); // Update the state to trigger a re-render
+    if (boardData.placePiece(columnIndex)) {
+      console.log(boardData.grid[columnIndex].length);
+      togglePlayer();
       return true;
     }
-
     return false;
   };
 
-  for (let row = 0; row < rows; row++) {
-    const currentRow = [];
-    for (let col = 0; col < columns; col++) {
-      currentRow.push(<div className="circle" key={`cell-${row}-${col}`}></div>);
-    }
-    board.push(
-      <div className="row" key={`row-${row}`}>
-        {currentRow}
-      </div>
+  // Create columns with the Column component
+  const boardColumns = [];
+  for (let col = 0; col < columns; col++) {
+    boardColumns.push(
+      <Column key={`column-${col}`} columnIndex={col} columnHook={columnHook} />
     );
   }
 
   return (
     <div className="board">
-      {board}
+      <div className="row">
+        {boardColumns}
+      </div>
     </div>
   );
 };
