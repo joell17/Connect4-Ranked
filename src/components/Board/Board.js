@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
-import './Board.css';
-import BoardData from '../../utils/BoardData';
-import Column from '../Column/Column';
-import { useGameContext } from '../../utils/GameProvider';
+import React, { useState } from "react";
+import "./Board.css";
+import BoardData from "../../utils/BoardData";
+import Column from "../Column/Column";
 
-const Board = () => {
-  const {togglePlayer} = useGameContext();
+const Board = ({ currentPlayer, togglePlayer, gameOverHook}) => {
   const columns = 7;
 
   const winHook = () => {
-    console.log("You win");
-    // Add additional win logic here
+    gameOverHook();
+    // Play cool win animation
   };
 
-  const [boardData, _] = useState(new BoardData(winHook));  // This feels very wrong, but it works
+  const [boardData, _] = useState(new BoardData(winHook)); // This feels very wrong, but it works
 
   // Called when a column is clicked
   const columnHook = (columnIndex) => {
     if (boardData.placePiece(columnIndex)) {
-      console.log(boardData.grid[columnIndex].length);
-      togglePlayer();
+      if (!boardData.hasWon) togglePlayer();
       return true;
     }
     return false;
@@ -29,15 +26,18 @@ const Board = () => {
   const boardColumns = [];
   for (let col = 0; col < columns; col++) {
     boardColumns.push(
-      <Column key={`column-${col}`} columnIndex={col} columnHook={columnHook} />
+      <Column
+        key={`column-${col}`}
+        currentPlayer={currentPlayer}
+        columnIndex={col}
+        columnHook={columnHook}
+      />
     );
   }
 
   return (
     <div className="board">
-      <div className="row">
-        {boardColumns}
-      </div>
+      <div className="row">{boardColumns}</div>
     </div>
   );
 };

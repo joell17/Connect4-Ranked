@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import "./Column.css";
 import GamePiece from "../GamePiece/GamePiece";
 import Slot from "../Slot/Slot";
-import { useGameContext } from "../../utils/GameProvider";
 
-const Column = ({ columnIndex, columnHook }) => {
+const Column = ({ currentPlayer, columnIndex, columnHook }) => {
   const [gamePieces, setGamePieces] = useState([]);
   const [ghostPiece, setGhostPiece] = useState(null);
-  const {currentPlayer} = useGameContext();
 
   const rows = 6; // Number of rows in the column
   const pieceHeightPercentage = (100 / rows).toFixed(2);  // Calculate the height of each game piece as a percentage of the column height

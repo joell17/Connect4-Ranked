@@ -5,6 +5,7 @@ class BoardData {
       this.grid = Array.from({ length: 7 }, () => []); // Array of 7 stacks
       this.currentPlayer = 'r'; // 'r' for red, 'b' for blue
       this.winHook = winHook;
+      this.hasWon = false;
     }
 
     clone() {
@@ -30,7 +31,7 @@ class BoardData {
         this.grid[x].push(this.currentPlayer); // Place the piece
   
         if (this.checkWin(x, this.grid[x].length - 1)) {
-          console.log(`${this.currentPlayer} WINS!!!!!`); // Replace with win logic
+          this.hasWon = true;
           this.winHook();
         }
   
