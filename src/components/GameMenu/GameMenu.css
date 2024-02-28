@@ -27,6 +27,8 @@
     color: white; /* Set label text color to white */
     font-size: 32px; /* Adjust label font size as needed */
     font-family: "My UI Font", sans-serif;
+    width: 70px; /* Set a fixed width for the label */
+    text-align: center; /* Center the text within the label */
 }
 
 .game-menu-button:hover {
