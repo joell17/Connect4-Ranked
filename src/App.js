@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainMenu from './components/MainMenu';
-import LocalGame from './components/LocalGame';
+import MainMenu from './components/MainMenu/MainMenu';
+import LocalGame from './components/LocalGame/LocalGame';
 
 function App() {
   return (
