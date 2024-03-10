@@ -16,22 +16,18 @@ const LocalGame = () => {
     setCurrentPlayer(currentPlayer === "Player1" ? "Player2" : "Player1");
   };
 
-  const gameOverHook = () => {
-    setIsGameOver(true);
-  };
-
   return (
     <div className="game">
       <Board
         currentPlayer={currentPlayer}
         togglePlayer={togglePlayer}
-        gameOverHook={gameOverHook}
+        setIsGameOver={setIsGameOver}
         isGameOver={isGameOver}
       />
       <GameMenu
         currentPlayer={currentPlayer}
         togglePlayer={togglePlayer}
-        gameOverHook={gameOverHook}
+        setIsGameOver={setIsGameOver}
         isGameOver={isGameOver}
       />
     </div>

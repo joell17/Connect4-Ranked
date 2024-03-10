@@ -1,5 +1,5 @@
 import React from "react";
-import "./MainMenu.css"; // Assuming you will create a CSS file for styling
+import "./MainMenu.css";
 import { useNavigate } from 'react-router-dom';
 
 const MainMenu = () => {

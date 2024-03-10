@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const GameMenu = ({
   currentPlayer,
   togglePlayer,
-  gameOverHook,
+  setIsGameOver,
   isGameOver,
 }) => {
   const timerMax = 15;
@@ -14,7 +14,7 @@ const GameMenu = ({
 
   const makeCurrentPlayerLose = () => {
     togglePlayer();
-    gameOverHook();
+    setIsGameOver(true);
   };
 
   // Handle countdown
@@ -37,7 +37,7 @@ const GameMenu = ({
     return () => {
       clearInterval(timer);
     };
-  }, [timeLeft, gameOverHook, isGameOver]);
+  }, [timeLeft, isGameOver]);
 
   // Handle reset countdown
   useEffect(() => {
@@ -50,11 +50,18 @@ const GameMenu = ({
       {isGameOver ? (
         <>
           <button
-            onClick={() => navigate("/game")}
+            onClick={() => {setIsGameOver(false);}}
             className="game-menu-button"
             aria-label="Rematch Game"
           >
             Rematch
+          </button>
+          <button
+            onClick={() => navigate('/')}
+            className="game-menu-button"
+            aria-label="Main Menu"
+          >
+            Menu
           </button>
           <label>{currentPlayer + " Wins!!!"}</label>
         </>

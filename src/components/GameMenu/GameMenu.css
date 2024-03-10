@@ -8,7 +8,7 @@
     padding-bottom: 1.5%;
     padding-left: 12.5%;
     padding-right: 12.5%;
-    gap: 20%; /* Add space between button and label */
+    gap: 10%; /* Add space between button and label */
     border-radius: 10px; /* Optional: add rounded corners */
 }
 
@@ -16,9 +16,10 @@
     color: white;
     font-family: "My UI Font", sans-serif;
     background-color: var(--color-tertiary);
-    padding: 20px 20px;
+    padding: 10px 20px;
     cursor: pointer;
     font-size: 32px;
+    align-content: center;
     border: none; /* Remove default button border */
     border-radius: 10px; /* Optional: add rounded corners */
 }
