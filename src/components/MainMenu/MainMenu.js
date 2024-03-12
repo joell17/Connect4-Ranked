@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 const MainMenu = () => {
   const navigate = useNavigate();
   const [activeMenuItem, setActiveMenuItem] = useState(null);
+  const [selectedSkinButton, setSelectedSkinButton] = useState('primary');
 
   return (
-    <div className={`main-menu-top-level ${activeMenuItem ? 'active' : ''}`}>
+    <div className={`main-menu-top-level ${activeMenuItem ? "active" : ""}`}>
       <div className="main-menu">
         {/* Buttons for the side menu */}
         <button onClick={() => navigate("/game")} className="clear-button">
@@ -24,11 +25,36 @@ const MainMenu = () => {
         </button>
       </div>
 
-    
       <div className="side-menu">
-        <button onClick={() => setActiveMenuItem(null)} className="close-button">Close</button>
+        <button
+          onClick={() => setActiveMenuItem(null)}
+          className="close-button"
+        >
+          Close
+        </button>
 
-        {activeMenuItem === 'skins' && <div>Skins Content</div>}
+        {activeMenuItem === "skins" && (
+          <div className="skins-menu">
+            <div className="selector-buttons">
+              {/* Two circle buttons for changing primary and secondary skins, active/selected one has highlighted border*/}
+              <button
+                onClick={() => setSelectedSkinButton("primary")}
+                className={`skin-button ${
+                  selectedSkinButton === "primary" ? "selected" : ""
+                }`}
+              ></button>
+              <button
+                onClick={() => setSelectedSkinButton("secondary")}
+                className={`skin-button ${
+                  selectedSkinButton === "secondary" ? "selected" : ""
+                }`}
+              ></button>
+            </div>
+            <div className="skin-selection">
+              {/* A menu of square selectable buttons, navigable with arrows */}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="title-section">
