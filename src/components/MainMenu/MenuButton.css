@@ -1,0 +1,17 @@
+.menu-button {
+  color: white;
+  font-family: var(--ui-font);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  padding: 20px 40px;
+  justify-content: center;
+}
+
+.menu-button:hover,
+.menu-button:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+  outline: none;
+  /* Optionally remove the outline for focused state */
+}
