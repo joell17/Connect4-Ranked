@@ -1,60 +1,49 @@
+// MainMenu.js
 import { useState } from "react";
 import React from "react";
 import "./MainMenu.css";
 import { useNavigate } from "react-router-dom";
+import MenuButton from "./MenuButton";
+import SkinMenuContent from "./SkinMenuContent"; // Import your SkinMenuContent component
 
 const MainMenu = () => {
   const navigate = useNavigate();
-  const [activeMenuItem, setActiveMenuItem] = useState(null);
-  const [selectedSkinButton, setSelectedSkinButton] = useState('primary');
+  const [activeMenuItemContent, setActiveMenuItemContent] = useState(null);
 
   return (
-    <div className={`main-menu-top-level ${activeMenuItem ? "active" : ""}`}>
+    <div
+      className={`main-menu-top-level ${activeMenuItemContent ? "active" : ""}`}
+    >
       <div className="main-menu">
-        {/* Buttons for the side menu */}
-        <button onClick={() => navigate("/game")} className="clear-button">
-          Local PvP
-        </button>
-        <button className="clear-button">Online Casual</button>
-        <button className="clear-button">Online Ranked</button>
-        <button
-          onClick={() => setActiveMenuItem("skins")}
-          className="clear-button"
+        <MenuButton
+          label="Local PvP"
+          setActiveMenuItems={() => navigate("/game")}
+        />
+        <MenuButton
+          label="Online Casual"
+          setActiveMenuItems={setActiveMenuItemContent}
         >
-          Skins
-        </button>
+          {/* Content for Online Casual */}
+        </MenuButton>
+        <MenuButton
+          label="Online Ranked"
+          setActiveMenuItems={setActiveMenuItemContent}
+        >
+          {/* Content for Online Ranked */}
+        </MenuButton>
+        <MenuButton label="Skins" setActiveMenuItems={setActiveMenuItemContent}>
+          <SkinMenuContent />
+        </MenuButton>
       </div>
 
       <div className="side-menu">
         <button
-          onClick={() => setActiveMenuItem(null)}
+          onClick={() => setActiveMenuItemContent(null)}
           className="close-button"
         >
           Close
         </button>
-
-        {activeMenuItem === "skins" && (
-          <div className="skins-menu">
-            <div className="selector-buttons">
-              {/* Two circle buttons for changing primary and secondary skins, active/selected one has highlighted border*/}
-              <button
-                onClick={() => setSelectedSkinButton("primary")}
-                className={`skin-button ${
-                  selectedSkinButton === "primary" ? "selected" : ""
-                }`}
-              ></button>
-              <button
-                onClick={() => setSelectedSkinButton("secondary")}
-                className={`skin-button ${
-                  selectedSkinButton === "secondary" ? "selected" : ""
-                }`}
-              ></button>
-            </div>
-            <div className="skin-selection">
-              {/* A menu of square selectable buttons, navigable with arrows */}
-            </div>
-          </div>
-        )}
+        {activeMenuItemContent}
       </div>
 
       <div className="title-section">

@@ -6,6 +6,8 @@
   --color-fourth: #0F1035;
   --column-height: 420px;
   --game-piece-dim: 55px;
+  --title-font: "My Title Font", sans-serif;
+  --ui-font: "My UI Font", sans-serif;
   /* Define more CSS variables as needed */
 }
 
@@ -13,4 +15,14 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* This will hide the scrollbar, use it with caution */
+}
+
+@font-face {
+  font-family: "My Title Font";
+  src: url("./fonts/ccapshad.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "My UI Font";
+  src: url("./fonts/Fredoka-SemiBold.ttf") format("truetype");
 }
