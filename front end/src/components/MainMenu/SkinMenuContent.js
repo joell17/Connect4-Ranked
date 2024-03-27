@@ -14,6 +14,7 @@ const SkinMenuContent = () => {
             selectedSkinButton === "primary" ? "selected" : ""
           }`}
           aria-label="Select Primary Skin"
+          style={{ backgroundImage: `url(${undefined})` }}
         ></button>
         <button
           onClick={() => setSelectedSkinButton("secondary")}
@@ -21,6 +22,7 @@ const SkinMenuContent = () => {
             selectedSkinButton === "secondary" ? "selected" : ""
           }`}
           aria-label="Select Secondary Skin"
+          style={{ backgroundImage: `url(${undefined})` }}
         ></button>
       </div>
       <div className="skin-selection">

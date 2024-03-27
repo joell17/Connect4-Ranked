@@ -1,0 +1,86 @@
+----------------------
+How does the app work:
+----------------------
+    - A user starts the app:
+        - The main menu opens
+        - Log in automatically if user is remembered
+            - Get users primary and secondary skins
+            - Load in user's unlocked skins
+            - Show option for user stats 
+                - wins
+                - losses
+                - rank
+                - sign out
+
+    - The user selects local pvp
+        - The LocalGame react-route is loaded
+
+    - The user selects Online Casual
+        - If user not logged in, don't allow
+        - Players post their primary skin
+            - request:
+                - image_name
+        - Wait till both players have successfully posted
+        - Players get opponent's primary skin
+            - response:
+                - image_name
+        - Go to OnlineCasualGame react-route
+            - boardData is managed in backend
+            - player_turn is managed in backend
+            - Route for placing piece:
+                - Checks if it was received from the correct player
+                - Update BoardData
+                - Send response to both players if successful
+                    - Player renders new piece in correct position
+                    - request:
+                        - player_id
+                        - piece_position
+                    - response:
+                        - placement_successful (bool)
+                        - player_won (bool)
+                        - Does this need to be a separate route that players get from?
+                - If player_won
+                    - update records of both players accordingly
+
+    - The user selects 'Online Ranked' (TBD)
+    
+    - The user selects skins
+        - If the user isn't logged in, don't allow
+        - I hate the idea of using context api, so I'd rather not
+        - Show the current primary and secondary skins
+            - The primary and secondary skin should've been gotten on login
+        - User selects which one they would like to update
+        - User can select from options they have unlocked
+            - Should also be gotten on login
+                - Skins should ordered, so just it could just be the index of the last skin unlocked
+        - User can hit 'Apply' button
+            - request:
+                - primary_skin_name
+                - secondary_skin_name
+
+
+    - The user selects login
+        - side menu to login shows up
+        - on successful login
+            - do as stated in the app start section
+            - change the login button to profile button
+        - sign-up button
+            - generate new user_data with default values
+            - log the user in automatically
+            - do normal login process
+        
+------    
+TO DO:  
+------
+- Log in system
+    - Add a log in button
+    - Set up MongoDB cluster
+    - Set up back end (FastAPI, prisma)
+    - Google oAuth
+    - If new user, generate user_data with default properties
+        - decide what goes in a user_data document
+    - Load in user_data
+    - Change log in button to profile button
+        - Display user data
+        - Sign out button
+

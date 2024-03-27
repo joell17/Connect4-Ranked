@@ -1,0 +1,73 @@
+What is Cloud Hosting?
+    - Fancy and expensive
+    - Not needed
+Expensive and not necessary.
+
+How should I make online work?
+    - Use backend for managing game state
+        - Python FastAPI
+        - Game Sessions
+            - Create a system for managing sessions
+            - Make session id on login
+                - username + random number
+                - make sure it's unique
+        - Manage game state
+            - Check for win condition and notify players
+                - update database user_stats accordingly
+            - Handle player actions:
+                - place piece
+                    - notify both players on success
+    - What are Websockets?
+        - open two-way communication between browser session and server
+        - How to use them?
+            - websocket api, socket.IO 
+            - Handle disconnections
+Read motherfucker! Read!
+
+Would a Flask backend work well for this?
+    - Pros/Cons? It might work. But FastAPI better. Works with prisma too.
+    - How to host?
+        - Google Cloud Platform (GCP): GCP offers a free tier with limited resources that can be used to host a 
+        small Flask app. You can use App Engine or Cloud Run to deploy your app.
+
+        - Amazon Web Services (AWS): AWS offers a free tier for 12 months that includes services like EC2 and 
+        Lambda, which can be used to host a Flask app. However, be mindful of the usage limits to avoid charges.
+
+        - Microsoft Azure: Azure provides a free tier with limited resources that can be used for hosting 
+        small web apps, including Flask apps.
+No. Use FastAPI
+
+What is backend rendering?
+    (CONCLUSION) Not necessary
+    Backend rendering, also known as server-side rendering (SSR), is the process of rendering a webpage on the server instead of in the user's browser. When a user requests a webpage, the server generates the HTML content for the page and sends it to the client's browser, where it is displayed.
+
+    ### Pros:
+
+    1. **SEO Improvement**: Since the HTML is fully rendered on the server, search engines can easily crawl and index the content, which can improve search engine rankings.
+    2. **Faster Initial Page Load**: The browser receives a fully rendered page, so the initial content is visible more quickly compared to client-side rendering, where the browser needs to download, parse, and execute JavaScript before displaying content.
+    3. **Consistent Performance**: The server's performance is more predictable than a client's device, which can vary widely in terms of processing power and network speed.
+
+    ### Cons:
+
+    1. **Server Load**: Rendering pages on the server can increase the workload on the server, especially for high-traffic websites, leading to higher resource usage and potentially slower response times.
+    2. **Less Dynamic Interactivity**: While SSR can deliver the initial page quickly, subsequent interactions that require updates to the DOM might feel less responsive compared to client-side rendering, as they often require additional server requests.
+    3. **Complexity**: Implementing SSR can be more complex than client-side rendering, particularly when integrating with client-side frameworks and managing state synchronization between the server and client.
+
+    ### Use Cases:
+
+    1. **SEO-Heavy Websites**: Websites that rely heavily on search engine visibility, such as e-commerce sites, blogs, and news portals, can benefit from SSR for improved SEO.
+    2. **Content-Heavy Websites**: Websites with a lot of static content that needs to be indexed by search engines are good candidates for SSR.
+    3. **Performance-Critical Applications**: Applications where the initial load time is critical, such as landing pages or marketing sites, can benefit from the faster perceived load times of SSR.
+
+    In summary, backend rendering is well-suited for scenarios where SEO and fast initial load times are important, but it may require careful consideration of server resources and complexity.
+Not necessary.
+
+How should I do logging in?
+    - Google oAuth? (Go with this)
+        - Easier and more secure
+    - Custom logging in?
+        - Pain in the ass and less secure
+Google oAuth. I don't hate myself.
+
+Should I use a mongoDB or PostgreSQL for tracking all of the app related data?
+MongoDB cuz not enough time.

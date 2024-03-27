@@ -8,16 +8,25 @@ export const useGameContext = () => useContext(GameContext);
 
 // Context provider component
 export const GameProvider = ({ children }) => {
-  const [currentPlayer, setCurrentPlayer] = useState('Player1');
+  const [primarySkin, setPrimarySkin] = useState('/images/red.png');
+  const [secondarySkin, setSecondarySkin] = useState('/images/yellow.png');
 
-  const togglePlayer = () => {
-    setCurrentPlayer(currentPlayer === 'Player1' ? 'Player2' : 'Player1');
-  };
+  const changePrimarySkin = (imageName) => {
+    // imageName should be just the image file, not path
+    setPrimarySkin('/images/' + imageName);
+  }
+
+  const changeSecondarySkin = (imageName) => {
+    // imageName should be just the image file, not path
+    setSecondarySkin('/images/' + imageName);
+  }
 
   // The value that will be supplied to any descendants of this provider
   const contextValue = {
-    currentPlayer,
-    togglePlayer,
+    primarySkin, 
+    changePrimarySkin,
+    secondarySkin, 
+    changeSecondarySkin
   };
 
   return (
