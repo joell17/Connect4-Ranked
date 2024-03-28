@@ -8,3 +8,6 @@ Use command to activate python virtual environment:
 'deactivate' to deactivate
 
 pip install fastapi uvicorn
+
+To run back end:
+uvicorn main:app --reload

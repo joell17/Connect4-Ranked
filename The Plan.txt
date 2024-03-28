@@ -77,8 +77,11 @@ TO DO:
     - Set up MongoDB cluster (done)
         - Make a collection for user_data
             - Decide what a user_data document looks like
-    - Set up back end (FastAPI, prisma)
+    - Set up back end (express, MongoDB, prisma) (done)
     - Google oAuth
+        - Need route for getting the user_data of signed in user
+            - If new user, generate new user_data with default values
+        - Option for signing in is in the side menu of the log in button
     - If new user, generate user_data with default properties
         - decide what goes in a user_data document
     - Load in user_data
