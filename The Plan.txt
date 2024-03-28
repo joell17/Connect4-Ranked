@@ -73,8 +73,10 @@ How does the app work:
 TO DO:  
 ------
 - Log in system
-    - Add a log in button
-    - Set up MongoDB cluster
+    - Add a log in button (done)
+    - Set up MongoDB cluster (done)
+        - Make a collection for user_data
+            - Decide what a user_data document looks like
     - Set up back end (FastAPI, prisma)
     - Google oAuth
     - If new user, generate user_data with default properties

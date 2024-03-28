@@ -34,6 +34,12 @@ const MainMenu = () => {
         <MenuButton label="Skins" setActiveMenuItems={setActiveMenuItemContent}>
           <SkinMenuContent />
         </MenuButton>
+        <MenuButton
+          label="Log In"
+          setActiveMenuItems={setActiveMenuItemContent}
+        >
+          <p>Yo, this is a log in thing</p>
+        </MenuButton>
       </div>
 
       <div className="side-menu">

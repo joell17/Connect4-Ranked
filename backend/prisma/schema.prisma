@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type UserDataSettings {
+  music_volume          Int
+  notifications_enabled Boolean
+  sound_volume          Int
+}
+
+model user_data {
+  id             String           @id @map("_id")
+  date_joined    String
+  email          String
+  games_played   Int
+  google_id      String
+  losses         Int
+  primary_skin   String
+  rank           String
+  secondary_skin String
+  settings       UserDataSettings
+  skins_unlocked String[]
+  wins           Int
+}
