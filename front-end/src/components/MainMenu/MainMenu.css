@@ -35,7 +35,14 @@
   position: relative;
 }
 
+.side-menu p {
+  font-family: var(--ui-font);
+  color: white;
+  
+}
+
 .main-menu-top-level.active .side-menu {
+  padding-left: 20px;
   width: 300px;
 }
 
@@ -60,3 +67,46 @@
   padding: 20px;
   /* Add padding for the side menu content */
 }
+.logout-button,
+.profile-info,
+.google-login-button {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-family: var(--ui-font);
+}
+
+.profile-info {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.google-login-button,
+.logout-button {
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.google-login-button {
+  background: #4285F4;
+  margin-bottom: 20px; /* Add some space between the login button and the profile info */
+}
+
+.google-login-button:hover {
+  background: #357ae8;
+}
+
+.logout-button {
+  background: #d9534f;
+}
+
+.logout-button:hover {
+  background: #c9302c;
+}
+
+
