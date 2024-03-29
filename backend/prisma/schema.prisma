@@ -18,7 +18,7 @@ model user_data {
   date_joined    String
   email          String
   games_played   Int
-  google_id      String
+  google_id      String           @unique
   losses         Int
   primary_skin   String
   rank           String

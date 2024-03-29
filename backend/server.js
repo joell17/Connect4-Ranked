@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: "TY5x8JnSd0",
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
@@ -28,14 +28,15 @@ passport.use(
     async (accessToken, refreshToken, profile, cb) => {
       let user = await prisma.user_data.findUnique({
         where: {
-          googleId: profile.id,
+          google_id: profile.id,
         },
       });
 
       if (!user) {
         user = await prisma.user_data.create({
           data: {
-            googleId: profile.id,
+            id: profile.id,
+            google_id: profile.id,
             email: profile.emails[0].value,
             date_joined: new Date().toISOString(),
             games_played: 0,
