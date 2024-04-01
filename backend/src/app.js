@@ -5,12 +5,32 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const cors = require("cors");
+const http = require("http");
+const WebSocket = require("ws");
+const cookieParser = require("cookie-parser");
+const cookie = require("cookie");
 
 const prisma = new PrismaClient();
 const app = express();
+const server = http.createServer(app); // Create an HTTP server for the express app
+const wss = new WebSocket.Server({ server }); // Attach the WebSocket server to the HTTP server
+const MatchmakingService = require('./services/matchmaking');
 
-const cors = require("cors");
+const matchmakingService = new MatchmakingService(wss); // Pass the WebSocket server to the matchmaking service
 
+// Session configuration
+const sessionParser = session({
+  secret: "TY5x8JnSd0",
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
+});
+
+app.use(sessionParser);
+app.use(cookieParser());
+
+// CORS configuration
 app.use(
   cors({
     origin: "http://localhost:3001", // Your frontend origin
@@ -18,16 +38,8 @@ app.use(
   })
 );
 
-
-app.use(
-  session({
-    secret: "TY5x8JnSd0",
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
-  })
-);
-
+// Passport configuration for Google OAuth
+// Passport configuration for Google OAuth
 passport.use(
   new GoogleStrategy(
     {
@@ -45,7 +57,7 @@ passport.use(
       if (!user) {
         user = await prisma.user_data.create({
           data: {
-            id: profile.id,
+            id: profile.id, // Include the id field
             google_id: profile.id,
             email: profile.emails[0].value,
             date_joined: new Date().toISOString(),
@@ -71,12 +83,12 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.google_id); // Use google_id for session identification
 });
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (google_id, done) => {
   try {
-    const user = await prisma.user_data.findUnique({ where: { id } });
+    const user = await prisma.user_data.findUnique({ where: { google_id } });
     done(null, user);
   } catch (error) {
     done(error);
@@ -95,35 +107,19 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
-    req.session.user = { google_id: req.user.id }; // Store google_id in session
+    // Store entire user_data in session
+    req.session.user = req.user;
     res.redirect("http://localhost:3001/"); // Change this for production
   }
 );
 
-
-app.get("/auth/user", async (req, res) => {
+app.get("/auth/user", (req, res) => {
   if (req.session.user) {
-    try {
-      const user = await prisma.user_data.findUnique({
-        where: {
-          google_id: req.session.user.google_id, // Assuming google_id is stored in the session
-        },
-      });
-
-      if (user) {
-        res.json(user);
-      } else {
-        res.status(404).json({ message: "User not found" });
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
+    res.json(req.session.user); // Send user data from session
   } else {
     res.status(401).json({ message: "Not authenticated" });
   }
 });
-
 
 app.get("/logout", (req, res) => {
   req.logout(() => {
@@ -133,7 +129,27 @@ app.get("/logout", (req, res) => {
 });
 
 
+const gameRoutes = require("./routes/gameRoutes");
+app.use("/game", gameRoutes(matchmakingService));
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => { // Use the HTTP server to listen
   console.log(`Server is running on port ${PORT}`);
+});
+
+// WebSocket connection handling
+wss.on("connection", (ws, req) => {
+  // Parse session from the request
+  sessionParser(req, {}, () => {
+    if (req.session.user) {
+      // Attach the user to the WebSocket object for later reference
+      ws.user = req.session.user;
+    }
+  });
+
+  ws.on("message", (message) => {
+    console.log("Received message:", message);
+  });
+
+  ws.send("Welcome to the WebSocket server!");
 });

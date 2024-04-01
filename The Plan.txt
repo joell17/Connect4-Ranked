@@ -72,7 +72,7 @@ How does the app work:
 ------    
 TO DO:  
 ------
-- Log in system
+- Log in system (done)
     - Add a log in button (done)
     - Set up MongoDB cluster (done)
         - Make a collection for user_data
@@ -88,4 +88,34 @@ TO DO:
     - Change log in button to profile button
         - Display user data
         - Sign out button
+Here's a refined version of your plan for the Online Casual feature:
 
+- Online Casual
+    - Matchmaking
+        - User clicks "Find Match" in the side menu.
+        - Backend initiates matchmaking, trying to pair two available sessions.
+        - Once matched, backend establishes a game session for both players.
+
+    - Gameplay
+        - Player attempts to place a piece on the board.
+        - Backend validates the move:
+        - If invalid, sends a failure signal to the current player.
+        - If valid, updates the game state, sends a success signal to both players, and switches the active player.
+        - Frontend listens for signals from the backend and updates the board accordingly.
+        - This can be done using WebSockets or polling for updates.
+        - If a win condition is detected:
+        - Display the winner.
+        - Backend updates user stats.
+        - Clear the board and show rematch and menu options.
+        - Backend manages rematch requests or disconnection.
+
+    - Post-Game
+        - Implement a timer for rematch decisions to keep the flow moving.
+        - Handle cases where one player wants a rematch and the other does not.
+
+
+- Fix the board
+    - Insert pieces top-down (from the board to the column)
+    - Move state up
+        - Keep track of existing pieces in the board
+        - Columns call hook on board, that places piece
