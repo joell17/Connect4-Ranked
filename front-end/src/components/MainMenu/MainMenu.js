@@ -1,5 +1,4 @@
-// MainMenu.js
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import React from "react";
 import "./MainMenu.css";
 import { useNavigate } from "react-router-dom";
@@ -7,26 +6,18 @@ import MenuButton from "./MenuButton";
 import SkinMenuContent from "./SkinMenuContent"; // Import your SkinMenuContent component
 import config from "../../config";
 
-const MainMenu = () => {
+const MainMenu = ({ userData, setUserData, ws }) => {
   const navigate = useNavigate();
   const [activeMenuItemContent, setActiveMenuItemContent] = useState(null);
-  const [userData, setUserData] = useState(null); // State to store user data
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const response = await fetch(`${config.backendURL}/auth/user`, {
-        credentials: "include",
-      });
-      if (response.ok) {
-        const userData = await response.json();
-        setUserData(userData); // Set user data state
-      } else {
-        console.error("Failed to fetch user data");
-      }
-    };
-
-    fetchUserData();
-  }, []);
+  const joinMatchmaking = async () => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      // Send a message to the server to join matchmaking
+      ws.send(JSON.stringify({ action: "joinMatchmaking" }));
+    } else {
+      console.error("WebSocket is not connected");
+    }
+  };
 
   return (
     <div
@@ -35,13 +26,16 @@ const MainMenu = () => {
       <div className="main-menu">
         <MenuButton
           label="Local PvP"
-          setActiveMenuItems={() => navigate("/game")}
+          setActiveMenuItems={() => navigate("/local-pvp")}
         />
         <MenuButton
           label="Online Casual"
-          setActiveMenuItems={setActiveMenuItemContent}
+          setActiveMenuItems={() => {
+            setActiveMenuItemContent(null); // I want to display a button that starts matchmaking, then UI to show matchmaking in progress
+            joinMatchmaking(); // Join matchmaking
+          }}
         >
-          {/* Content for Online Casual */}
+          {/* Content for Online Casual. // I want to display a button that starts matchmaking, then UI to show matchmaking in progress */}
         </MenuButton>
         <MenuButton
           label="Online Ranked"
