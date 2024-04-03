@@ -36,9 +36,14 @@ function App() {
     };
 
     websocket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      if (message.type === "gameSessionCreated") {
-        setGameSession(message.gameSession);
+      try {
+        const message = JSON.parse(event.data);
+        if (message.type === "gameSessionCreated") {
+          setGameSession(message.gameSession);
+        }
+      }
+      catch (error) {
+        console.error("Received non-JSON message:", event.data);
       }
     };
 

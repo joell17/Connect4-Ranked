@@ -1,4 +1,5 @@
 const GameSession = require("../models/GameSession");
+const WebSocket = require('ws');
 
 class MatchmakingService {
   constructor(wss) {
@@ -23,8 +24,11 @@ class MatchmakingService {
   }
 
   notifyPlayers(player1, player2, gameSession) {
+    console.log('Trying to notify players');
+  
     this.wss.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN && (client.user === player1.google_id || client.user === player2.google_id)) {
+      if (client.readyState === WebSocket.OPEN && (client.user.google_id === player1.google_id || client.user.google_id === player2.google_id)) {
+        console.log('Found a player: ' + client.user.google_id);
         client.send(
           JSON.stringify({
             type: "gameSessionCreated",
@@ -33,7 +37,7 @@ class MatchmakingService {
         );
       }
     });
-  }
+  }  
 }
 
 module.exports = MatchmakingService;
