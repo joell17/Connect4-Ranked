@@ -5,8 +5,12 @@ class GameSession {
   constructor(player1, player2) {
     this.id = this.generateUniqueId();
     this.players = [
-      { id: player1.id, username: player1.username, skin: player1.skin },
-      { id: player2.id, username: player2.username, skin: player2.skin }
+      { id: player1.id, username: player1.username, skin: player1.primary_skin },
+      {
+        id: player2.id,
+        username: player2.username,
+        skin: player1.primary_skin === player2.primary_skin ? player2.secondary_skin : player2.primary_skin
+      }
     ];
     this.boardData = new BoardData(this.winHook.bind(this));
     this.currentPlayerIndex = 0; // Index of the current player in the players array

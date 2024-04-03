@@ -20,6 +20,7 @@ const passportConfig = (passport) => {
         });
   
         if (!user) {
+          const username = profile.emails[0].value.split('@')[0];
           user = await prisma.user_data.create({
             data: {
               id: profile.id, // Include the id field
@@ -37,6 +38,7 @@ const passportConfig = (passport) => {
                 sound_volume: 50,
               },
               skins_unlocked: ["red", "yellow"],
+              username: username,
               wins: 0,
             },
           });

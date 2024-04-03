@@ -25,5 +25,6 @@ model user_data {
   secondary_skin String
   settings       UserDataSettings
   skins_unlocked String[]
+  username       String
   wins           Int
 }

@@ -1,0 +1,16 @@
+.game {
+    background-color: var(--color-primary);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2.5%;
+    justify-content: center;
+    gap: 20px;
+}
+
+@media (max-width: 800px) {
+    .game {
+        justify-content: flex-start; /* Adjust layout for smaller screens */
+    }
+}
