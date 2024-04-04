@@ -19,7 +19,7 @@ class BoardData {
   
     reset() {
       this.grid = Array.from({ length: 7 }, () => []); // Array of 7 stacks
-      this.currentPlayer = 'r'; // 'r' for red, 'b' for blue
+      //this.currentPlayer = 'r'; // 'r' for red, 'b' for blue
       this.hasWon = false;
     }
   

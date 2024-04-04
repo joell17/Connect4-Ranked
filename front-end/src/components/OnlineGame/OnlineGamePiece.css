@@ -1,0 +1,24 @@
+.online-game-piece {
+    position: absolute;
+    width: var(--game-piece-dim);
+    height: var(--game-piece-dim);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    margin: 7.5px;
+    align-content: center;
+}
+
+/* Specific styles for player pieces and ghost pieces */
+.r {
+    background-image: url('../../images/red.png');
+}
+
+.b {
+    background-image: url('../../images/yellow.png');
+}
+
+.ghost {
+    opacity: 0.5;
+}

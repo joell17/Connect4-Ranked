@@ -11,6 +11,52 @@
 
 @media (max-width: 800px) {
     .game {
-        justify-content: flex-start; /* Adjust layout for smaller screens */
+        justify-content: flex-start;
+        /* Adjust layout for smaller screens */
     }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-content {
+    background-color: var(--color-secondary);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    /* Adjust the width of the popup */
+}
+
+.overlay p {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: "My UI Font", sans-serif;
+}
+
+.overlay button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: var(--color-tertiary);
+    color: white;
+    font-family: "My UI Font", sans-serif;
+    border: none;
+    border-radius: 5px;
+}
+
+.overlay button:hover {
+    filter: brightness(80%);
 }

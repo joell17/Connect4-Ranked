@@ -6,7 +6,7 @@ import MenuButton from "./MenuButton";
 import SkinMenuContent from "./SkinMenuContent"; // Import your SkinMenuContent component
 import config from "../../config";
 
-const MainMenu = ({ userData, setUserData, ws }) => {
+const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
   const navigate = useNavigate();
   const [activeMenuItemContent, setActiveMenuItemContent] = useState(null);
   const [isMatchmaking, setIsMatchmaking] = useState(false);
@@ -21,6 +21,8 @@ const MainMenu = ({ userData, setUserData, ws }) => {
             console.log("Game was found!!!");
             setIsMatchmaking(false); // Matchmaking finished
             setActiveMenuItemContent(activeMenuItemContent);
+            setGameSession(message.gameSession);
+            navigate('/online-casual');
             // Navigate to the game page or update the UI as needed
           }
         } catch (error) {

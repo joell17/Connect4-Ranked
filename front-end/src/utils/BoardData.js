@@ -4,7 +4,12 @@ class BoardData {
     constructor(winHook) {
       this.grid = Array.from({ length: 7 }, () => []); // Array of 7 stacks
       this.currentPlayer = 'r'; // 'r' for red, 'b' for blue
-      this.winHook = winHook;
+      if (!winHook) {
+        this.winHook = () => {console.log('Bananas');};
+      }
+      else {
+        this.winHook = winHook;
+      }
       this.hasWon = false;
     }
 
@@ -19,7 +24,7 @@ class BoardData {
   
     reset() {
       this.grid = Array.from({ length: 7 }, () => []); // Array of 7 stacks
-      this.currentPlayer = 'r'; // 'r' for red, 'b' for blue
+      //this.currentPlayer = 'r'; // 'r' for red, 'b' for blue
       this.hasWon = false;
     }
   

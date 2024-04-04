@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import MainMenu from "./components/MainMenu/MainMenu";
 import LocalGame from "./components/LocalGame/LocalGame";
+import OnlineGame from "./components/OnlineGame/OnlineGame";
 import config from "./config"; // Assuming you have a config file for backend URL
 
 function App() {
@@ -39,7 +40,8 @@ function App() {
       try {
         const message = JSON.parse(event.data);
         if (message.type === "gameSessionCreated") {
-          setGameSession(message.gameSession);
+          // setGameSession(message.gameSession);
+          // navigate("/online-casual");
         }
       }
       catch (error) {
@@ -65,8 +67,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainMenu userData={userData} setUserData={setUserData} ws={ws} />} />
+          <Route path="/" element={<MainMenu userData={userData} setUserData={setUserData} ws={ws} setGameSession={setGameSession}/>} />
           <Route path="/local-pvp" element={<LocalGame />} />
+          <Route path="/online-casual" element={<OnlineGame ws={ws} gameSession={gameSession} user_data={userData} />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,0 +1,25 @@
+.column-toplevel {
+    position: relative;
+    width: var(--game-piece-dim);
+    height: var(--column-height);
+    margin: 0 7.5px;
+}
+
+.column-button {
+    background: none;
+    border: none;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.slot {
+    width: var(--game-piece-dim);
+    height: var(--game-piece-dim);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

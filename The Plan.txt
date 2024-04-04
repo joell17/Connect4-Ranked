@@ -72,50 +72,62 @@ How does the app work:
 ------    
 TO DO:  
 ------
-- Log in system (done)
-    - Add a log in button (done)
-    - Set up MongoDB cluster (done)
-        - Make a collection for user_data
-            - Decide what a user_data document looks like
-    - Set up back end (express, MongoDB, prisma) (done)
-    - Google oAuth
-        - Need route for getting the user_data of signed in user
-            - If new user, generate new user_data with default values (done)
-        - Option for signing in is in the side menu of the log in button
-    - If new user, generate user_data with default properties
-        - decide what goes in a user_data document
-    - Load in user_data
-    - Change log in button to profile button
-        - Display user data
-        - Sign out button
-Here's a refined version of your plan for the Online Casual feature:
+    - Log in system (done)
+        - Add a log in button (done)
+        - Set up MongoDB cluster (done)
+            - Make a collection for user_data
+                - Decide what a user_data document looks like
+        - Set up back end (express, MongoDB, prisma) (done)
+        - Google oAuth
+            - Need route for getting the user_data of signed in user
+                - If new user, generate new user_data with default values (done)
+            - Option for signing in is in the side menu of the log in button
+        - If new user, generate user_data with default properties
+            - decide what goes in a user_data document
+        - Load in user_data
+        - Change log in button to profile button
+            - Display user data
+            - Sign out button
+    Here's a refined version of your plan for the Online Casual feature:
 
-- Online Casual
-    - Matchmaking
-        - User clicks "Find Match" in the side menu.
-        - Backend initiates matchmaking, trying to pair two available sessions.
-        - Once matched, backend establishes a game session for both players.
+    - Online Casual
+        - Matchmaking (done)
+            - User clicks "Find Match" in the side menu.
+            - Backend initiates matchmaking, trying to pair two available sessions.
+            - Once matched, backend establishes a game session for both players.
 
-    - Gameplay
-        - Player attempts to place a piece on the board.
-        - Backend validates the move:
-        - If invalid, sends a failure signal to the current player.
-        - If valid, updates the game state, sends a success signal to both players, and switches the active player.
-        - Frontend listens for signals from the backend and updates the board accordingly.
-        - This can be done using WebSockets or polling for updates.
-        - If a win condition is detected:
-        - Display the winner.
-        - Backend updates user stats.
-        - Clear the board and show rematch and menu options.
-        - Backend manages rematch requests or disconnection.
+        - Gameplay
+            - Player clicks forfeit
+            - Player attempts to place a piece on the board. (done)
+                - Backend validates the move: (done)
+                    - If invalid, sends a failure signal to the current player. (done)
+                    - If valid, updates the game state, sends a success signal to both players, and switches the active player. (done)
+                    - Frontend listens for signals from the backend and updates the board accordingly. (done)
+                    - This can be done using WebSockets or polling for updates. (done)
+                - If a win condition is detected:
+                    - Display the winner. (done)
+                    - Backend updates user stats.
+                    - Clear the board and show rematch and menu options. (done)
+                    - Backend manages rematch requests or disconnection. (done)
 
-    - Post-Game
-        - Implement a timer for rematch decisions to keep the flow moving.
-        - Handle cases where one player wants a rematch and the other does not.
+        - Post-Game
+            - Implement a timer for rematch decisions to keep the flow moving.
+            - Handle cases where one player wants a rematch and the other does not. (done)
 
 
-- Fix the board
-    - Insert pieces top-down (from the board to the column)
-    - Move state up
-        - Keep track of existing pieces in the board
-        - Columns call hook on board, that places piece
+    - Fix the board (done)
+        - Insert pieces top-down (from the board to the column) (done)
+        - Move state up (done)
+            - Keep track of existing pieces in the board (done)
+            - Columns call hook on board, that places piece (done)
+
+------------
+Bugs To Fix:
+------------
+    - The empty game pieces are deleted starting from the top (fixed)
+    - The game pieces won't stack when placed (probably related to above) (fixed)
+    - The game pieces don't line up with the empty game pieces (fixed)
+    - On rematch, the player in the backend isn't the right player (fixed)
+    - The backend doesn't accept the forfeit message (fixed)
+    - The 'Player Disconnected Overlay' is nothing like I wanted it (fixed)
+    - Reload page gives error because it doesn't remember the game_session

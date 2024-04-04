@@ -9,7 +9,7 @@ const LocalGame = () => {
   // should be used for the current turn
   // This is to make it so that the Board component can be used
   // for every game mode (local pvp, local AI, online casual, online ranked)
-  const [currentPlayer, setCurrentPlayer] = useState("Player1");
+  const [currentPlayer, setCurrentPlayer] = useState("Player2");
   const [isGameOver, setIsGameOver] = useState(false);
 
   const togglePlayer = () => {

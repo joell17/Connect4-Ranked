@@ -1,0 +1,34 @@
+.game-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+    padding: 1.5% 12.5%;
+    gap: 10%;
+    border-radius: 10px;
+}
+
+.game-menu-button {
+    color: white;
+    font-family: "My UI Font", sans-serif;
+    background-color: var(--color-tertiary);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 24px; /* Adjusted font size */
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.game-menu label {
+    color: white;
+    font-size: 24px; /* Adjusted font size */
+    font-family: "My UI Font", sans-serif;
+    width: 100px; /* Adjusted width */
+    text-align: center;
+}
+
+.game-menu-button:hover {
+    filter: brightness(80%);
+}
