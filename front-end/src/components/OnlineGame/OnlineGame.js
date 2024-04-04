@@ -11,9 +11,13 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
     const [overlayVisible, setOverlayVisible] = useState(false);
     const navigate = useNavigate();
 
-    const game_session_id = gameSession.id;
-    const player1_skin = gameSession.player1_skin;
-    const player2_skin = gameSession.player2_skin;
+    useEffect(() => {
+        if (!gameSession) {
+            navigate("/");
+        } else {
+            setIsActivePlayer(gameSession.isPlayer1);
+        }
+    }, [gameSession, navigate]);
 
     const sendMessage = (type, message) => {
         if (ws.readyState === WebSocket.OPEN) {
@@ -22,7 +26,7 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
                     ...message,
                     type: type,
                     player_id: user_data.google_id,
-                    game_session_id: game_session_id,
+                    game_session_id: gameSession.id,
                 };
                 ws.send(JSON.stringify(jason));
                 return true;
@@ -44,7 +48,10 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
         });
     };
 
+    // Detect messages from backend
     useEffect(() => {
+        if (!ws) return;
+
         const handleMessage = (event) => {
             const message = JSON.parse(event.data);
             switch (message.type) {
@@ -71,9 +78,7 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
         };
     }, [ws, togglePlayer]);
 
-    useEffect(() => {
-        setIsActivePlayer(gameSession.isPlayer1);
-    }, [gameSession]);
+    
 
     return (
         <div className="game">
@@ -85,7 +90,7 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
                         isGameOver={isGameOver}
                         ws={ws}
                         sendMessage={sendMessage}
-                        playerSkins={[player1_skin, player2_skin]}
+                        playerSkins={gameSession ? [gameSession.player1_skin, gameSession.player2_skin] : []}
                     />
                     <OnlineGameMenu
                         isActivePlayer={isActivePlayer}

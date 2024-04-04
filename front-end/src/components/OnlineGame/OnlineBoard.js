@@ -26,6 +26,8 @@ const OnlineBoard = ({
     }, [isGameOver]);
 
     useEffect(() => {
+        if (!ws) return;
+
         const handleMessage = (event) => {
             const message = JSON.parse(event.data);
             if (message.type === "moveMade") {

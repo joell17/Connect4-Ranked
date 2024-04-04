@@ -131,3 +131,26 @@ Bugs To Fix:
     - The backend doesn't accept the forfeit message (fixed)
     - The 'Player Disconnected Overlay' is nothing like I wanted it (fixed)
     - Reload page gives error because it doesn't remember the game_session
+        - If no game_session, redirect to home page
+    - Player records are not being updated in database
+    - There's no time limit on each players turn
+
+
+---------------------------------------------
+Future Things To Do When You Have Extra Time:
+---------------------------------------------
+- Add animations to OnlineGamePieces
+- Make the ghost piece hover above columns
+- Remember game_session as part of user_data to help with page reloading
+- Get rid of the saving google ids, I feel like that's probably a bad thing to store
+- Add sound effects
+- Add music
+- Add options to change music and sound effects
+- Add more skins
+- Add AI opponent
+    - Simple zero sum game
+    - Expectimax
+        - Adjust expectations for difficulty
+- Add profile pictures
+- Add ranked icons
+- Add option to change username
