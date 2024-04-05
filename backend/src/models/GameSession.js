@@ -1,5 +1,7 @@
 const BoardData = require("./BoardData");
 const WebSocket = require("ws");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 class GameSession {
     constructor(player1, player2) {
@@ -34,8 +36,10 @@ class GameSession {
     }
 
     endSession() {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
     }
 
     startTimer() {
@@ -48,7 +52,8 @@ class GameSession {
             }
 
             // Notify players to update timer
-            if (this.status === 'ongoing') this.sendPlayersMessage("updateTimer", { timer: this.timer });
+            if (this.status === "ongoing")
+                this.sendPlayersMessage("updateTimer", { timer: this.timer });
         }, 1000);
     }
 
@@ -68,7 +73,7 @@ class GameSession {
             clearInterval(this.timerInterval);
             this.timerInterval = null;
         }
-        
+
         // Notify players to update timer
         this.sendPlayersMessage("updateTimer", { timer: this.timer });
         this.startTimer();
@@ -89,8 +94,10 @@ class GameSession {
         };
 
         // Send the message
-        if (player1Client.readyState === WebSocket.OPEN) player1Client.send(JSON.stringify(jason));
-        if (player2Client.readyState === WebSocket.OPEN) player2Client.send(JSON.stringify(jason));
+        if (player1Client.readyState === WebSocket.OPEN)
+            player1Client.send(JSON.stringify(jason));
+        if (player2Client.readyState === WebSocket.OPEN)
+            player2Client.send(JSON.stringify(jason));
 
         return true;
     }
@@ -116,8 +123,42 @@ class GameSession {
         this.winner = this.players[this.currentPlayerIndex].username;
 
         // Update database stats
+        const winner_id = this.players[this.currentPlayerIndex].id;
+        const loser_id = this.players[this.currentPlayerIndex === 0 ? 1 : 0].id;
+
+        this.updatePlayerRecords(winner_id, loser_id);
 
         this.sendPlayersMessage("gameOver", { winner_username: this.winner });
+    }
+
+    async updatePlayerRecords(winner_id, loser_id) {
+        try {
+            // Update the winner's record
+            await prisma.user_data.update({
+                where: {
+                    id: winner_id,
+                },
+                data: {
+                    wins: {
+                        increment: 1, // Increment the wins by 1
+                    },
+                },
+            });
+
+            // Update the loser's record
+            await prisma.user_data.update({
+                where: {
+                    id: loser_id,
+                },
+                data: {
+                    losses: {
+                        increment: 1, // Increment the losses by 1
+                    },
+                },
+            });
+        } catch (error) {
+            console.error("Failed to update player records:", error);
+        }
     }
 
     switchPlayer() {

@@ -96,8 +96,8 @@ TO DO:
             - Backend initiates matchmaking, trying to pair two available sessions.
             - Once matched, backend establishes a game session for both players.
 
-        - Gameplay
-            - Player clicks forfeit
+        - Gameplay (done)
+            - Player clicks forfeit (done)
             - Player attempts to place a piece on the board. (done)
                 - Backend validates the move: (done)
                     - If invalid, sends a failure signal to the current player. (done)
@@ -110,8 +110,8 @@ TO DO:
                     - Clear the board and show rematch and menu options. (done)
                     - Backend manages rematch requests or disconnection. (done)
 
-        - Post-Game
-            - Implement a timer for rematch decisions to keep the flow moving.
+        - Post-Game (done)
+            - Implement a timer for rematch decisions to keep the flow moving. (done)
             - Handle cases where one player wants a rematch and the other does not. (done)
 
 
@@ -132,8 +132,9 @@ Bugs To Fix:
     - The 'Player Disconnected Overlay' is nothing like I wanted it (fixed)
     - Reload page gives error because it doesn't remember the game_session (fixed)
         - If no game_session, redirect to home page
-    - Player records are not being updated in database
-    - Get rid of game session when players leave game
+    - Player records are not being updated in database (fixed)
+    - Fetch user_data when the user goes to the MainMenu
+    - Get rid of game session when players leave game (fixed)
     - There's no time limit on each players turn (fixed)
 
 

@@ -1,6 +1,8 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 // Google OAuth authentication route
 router.get(
@@ -23,9 +25,26 @@ router.get(
 );
 
 // Route to get the current user's data
-router.get('/user', (req, res) => {
+router.get('/user', async (req, res) => {
   if (req.session.user) {
-    res.json(req.session.user); // Send user data from session
+    try {
+      const user_data = await prisma.user_data.findUnique({
+        where: {
+          id: req.session.user.id
+        }
+      });
+
+      if (user_data) {
+        req.session.user = user_data;
+        res.json(user_data); // Send user data
+      } else {
+        // User not found in the database
+        res.status(404).json({ message: 'User not found' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
   } else {
     res.status(401).json({ message: 'Not authenticated' });
   }
