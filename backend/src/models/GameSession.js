@@ -10,7 +10,7 @@ class GameSession {
                 username: player1.username,
                 skin: player1.primary_skin,
                 client: null,
-                rematchRequested: false
+                rematchRequested: false,
             },
             {
                 id: player2.id,
@@ -20,14 +20,51 @@ class GameSession {
                         ? player2.secondary_skin
                         : player2.primary_skin,
                 client: null,
-                rematchRequested: false
+                rematchRequested: false,
             },
         ];
         this.boardData = new BoardData(this.winHook.bind(this));
         this.currentPlayerIndex = 0; // Index of the current player in the players array
-        this.timer = 15; // 15 seconds for each turn
         this.status = "ongoing";
         this.winner = null;
+
+        this.timer = 30; // 30 seconds for each turn
+        this.timerInterval = null;
+        this.startTimer();
+    }
+
+    startTimer() {
+        this.timerInterval = setInterval(() => {
+            this.timer--;
+
+            if (this.timer <= 0) {
+                // Make the current player lose
+                this.timeUp();
+            }
+
+            // Notify players to update timer
+            this.sendPlayersMessage("updateTimer", { timer: this.timer });
+        }, 1000);
+    }
+
+    timeUp() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+
+        // Consider it a forfeit when the timer runs out
+        this.switchPlayer();
+        this.winHook();
+    }
+
+    resetTimer() {
+        this.timer = 30;
+
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        this.startTimer();
     }
 
     sendPlayersMessage(type, message) {
@@ -40,12 +77,15 @@ class GameSession {
 
         // Form the message
         const jason = {
-            type : type,
-            ...message
-        }
+            type: type,
+            ...message,
+        };
 
         // Send the message
-        if (player1Client.readyState === WebSocket.OPEN && player2Client.readyState === WebSocket.OPEN) {
+        if (
+            player1Client.readyState === WebSocket.OPEN &&
+            player2Client.readyState === WebSocket.OPEN
+        ) {
             // Only send both or send none
             player1Client.send(JSON.stringify(jason));
             player2Client.send(JSON.stringify(jason));
@@ -63,10 +103,10 @@ class GameSession {
     }
 
     rematch() {
-        this.switchPlayer()
+        this.switchPlayer();
         this.boardData.reset();
         this.winner = null;
-        this.status = 'ongoing'
+        this.status = "ongoing";
         this.players[0].rematchRequested = false;
         this.players[1].rematchRequested = false;
     }
@@ -77,16 +117,12 @@ class GameSession {
 
         // Update database stats
 
-        this.sendPlayersMessage('gameOver', {winner_username: this.winner});        
+        this.sendPlayersMessage("gameOver", { winner_username: this.winner });
     }
 
     switchPlayer() {
         this.currentPlayerIndex = (this.currentPlayerIndex + 1) % 2;
         this.resetTimer();
-    }
-
-    resetTimer() {
-        this.timer = 15;
     }
 
     placePiece(column) {

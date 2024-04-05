@@ -19,6 +19,7 @@
     border: none;
     border-radius: 10px;
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    justify-content: center;
 }
 
 .game-menu label {

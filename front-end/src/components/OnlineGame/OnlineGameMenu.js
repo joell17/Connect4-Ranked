@@ -7,8 +7,10 @@ const OnlineGameMenu = ({
     isGameOver,
     sendMessage,
     winner,
+    ws
 }) => {
     const [rematchRequested, setRematchRequested] = useState(false);
+    const [timer, setTimer] = useState(30);
     const navigate = useNavigate();
 
     const handleRematch = () => {
@@ -21,6 +23,27 @@ const OnlineGameMenu = ({
             setRematchRequested(false);
         }
     }, [isGameOver])
+
+    useEffect(() => {
+        if (!ws) return;
+
+        const handleMessage = (event) => {
+            const message = JSON.parse(event.data);
+            switch (message.type) {
+                case "updateTimer":
+                    setTimer(message.timer);
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        ws.addEventListener("message", handleMessage);
+
+        return () => {
+            ws.removeEventListener("message", handleMessage);
+        };
+    }, [ws, setTimer]);
 
     return (
         <div className="game-menu">
@@ -56,6 +79,7 @@ const OnlineGameMenu = ({
                     >
                         Forfeit
                     </button>
+                    <label>{"Time Left: " + timer}</label>
                     <label>
                         {isActivePlayer ? "Your Turn" : "Opponent's Turn"}
                     </label>

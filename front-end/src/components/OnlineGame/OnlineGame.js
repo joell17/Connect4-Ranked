@@ -97,6 +97,7 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
                         isGameOver={isGameOver}
                         sendMessage={sendMessage}
                         winner={winner}
+                        ws={ws}
                     />
                 </>
             ) : (
