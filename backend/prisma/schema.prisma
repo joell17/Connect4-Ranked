@@ -27,4 +27,5 @@ model user_data {
   skins_unlocked String[]
   username       String
   wins           Int
+  elo            Int
 }
