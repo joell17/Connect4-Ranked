@@ -113,6 +113,9 @@ class MatchmakingService {
             if (!gameSession.sendPlayersMessage("rematchDenied", {})) {
                 console.error("Failed to notify players of rematch");
             }
+            gameSession.endSession(); // Clears the timer interval and sets to null
+            delete this.gameSessions[game_session_id];
+            console.log("Game session " + game_session_id + " ended and removed.");
             return;
         }
 

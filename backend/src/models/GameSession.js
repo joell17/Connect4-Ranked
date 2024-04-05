@@ -33,6 +33,11 @@ class GameSession {
         this.startTimer();
     }
 
+    endSession() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+    }
+
     startTimer() {
         this.timerInterval = setInterval(() => {
             this.timer--;
@@ -43,7 +48,7 @@ class GameSession {
             }
 
             // Notify players to update timer
-            this.sendPlayersMessage("updateTimer", { timer: this.timer });
+            if (this.status === 'ongoing') this.sendPlayersMessage("updateTimer", { timer: this.timer });
         }, 1000);
     }
 
@@ -64,6 +69,8 @@ class GameSession {
             this.timerInterval = null;
         }
         
+        // Notify players to update timer
+        this.sendPlayersMessage("updateTimer", { timer: this.timer });
         this.startTimer();
     }
 
@@ -82,17 +89,10 @@ class GameSession {
         };
 
         // Send the message
-        if (
-            player1Client.readyState === WebSocket.OPEN &&
-            player2Client.readyState === WebSocket.OPEN
-        ) {
-            // Only send both or send none
-            player1Client.send(JSON.stringify(jason));
-            player2Client.send(JSON.stringify(jason));
-            return true;
-        }
+        if (player1Client.readyState === WebSocket.OPEN) player1Client.send(JSON.stringify(jason));
+        if (player2Client.readyState === WebSocket.OPEN) player2Client.send(JSON.stringify(jason));
 
-        return false;
+        return true;
     }
 
     generateUniqueId() {

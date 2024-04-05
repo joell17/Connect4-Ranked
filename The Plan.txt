@@ -143,7 +143,7 @@ Future Things To Do When You Have Extra Time:
 - Add animations to OnlineGamePieces
 - Make the ghost piece hover above columns
 - Remember game_session as part of user_data to help with page reloading
-- Make it so that closing the window or reloading sends a forfeit and rematchDenied to the other player
+- Make it so that closing the window or reloading sends a forfeit and rematchDenied to the other player (done)
 - Get rid of the saving google ids, I feel like that's probably a bad thing to store
 - Add sound effects
 - Add music
