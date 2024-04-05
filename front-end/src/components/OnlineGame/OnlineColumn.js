@@ -7,6 +7,7 @@ const OnlineColumn = ({
     boardData,
     isActivePlayer,
     placePiece,
+    playerSkins
 }) => {
     const rows = 6;
     const columnPieces = boardData.grid[columnIndex] || [];
@@ -26,7 +27,7 @@ const OnlineColumn = ({
                     return (
                         <div key={`slot-${i}`} className="slot">
                             {piece ? (
-                                <OnlineGamePiece player={piece} isGhost={false} />
+                                <OnlineGamePiece player={piece} isGhost={false} playerSkins={playerSkins}/>
                             ) : null}
                         </div>
                     );

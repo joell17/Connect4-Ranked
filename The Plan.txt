@@ -90,7 +90,7 @@ TO DO:
             - Sign out button
     Here's a refined version of your plan for the Online Casual feature:
 
-    - Online Casual
+    - Online Casual (done)
         - Matchmaking (done)
             - User clicks "Find Match" in the side menu.
             - Backend initiates matchmaking, trying to pair two available sessions.
@@ -114,12 +114,14 @@ TO DO:
             - Implement a timer for rematch decisions to keep the flow moving. (done)
             - Handle cases where one player wants a rematch and the other does not. (done)
 
-
     - Fix the board (done)
         - Insert pieces top-down (from the board to the column) (done)
         - Move state up (done)
             - Keep track of existing pieces in the board (done)
             - Columns call hook on board, that places piece (done)
+
+
+
 
 ------------
 Bugs To Fix:
@@ -133,7 +135,7 @@ Bugs To Fix:
     - Reload page gives error because it doesn't remember the game_session (fixed)
         - If no game_session, redirect to home page
     - Player records are not being updated in database (fixed)
-    - Fetch user_data when the user goes to the MainMenu
+    - Fetch user_data when the user goes to the MainMenu (fixed)
     - Get rid of game session when players leave game (fixed)
     - There's no time limit on each players turn (fixed)
 

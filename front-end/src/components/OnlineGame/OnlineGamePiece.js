@@ -1,10 +1,17 @@
 import React from 'react';
 import './OnlineGamePiece.css';
 
-const OnlineGamePiece = ({ player, isGhost }) => {
-  const className = `game-piece ${player} ${isGhost ? 'ghost' : ''}`;
+const OnlineGamePiece = ({ player, isGhost, playerSkins }) => {
+  const skin = playerSkins[player === 'r' ? 0 : 1];
+  const skinPath = require(`../../images/${skin}.png`);
 
-  return <div className={className}></div>;
+  const style = {
+    backgroundImage: `url(${skinPath})`
+  }
+
+  const className = 'game-piece';
+
+  return <div className={className} style={style}></div>;
 };
 
 export default OnlineGamePiece;

@@ -61,6 +61,7 @@ const OnlineBoard = ({
             boardData={boardData}
             isActivePlayer={isActivePlayer}
             placePiece={columnHook}
+            playerSkins={playerSkins}
         />
     ));
 
