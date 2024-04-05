@@ -78,7 +78,10 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
         };
     }, [ws, togglePlayer]);
 
-    
+    window.addEventListener("beforeunload", () => {
+        sendMessage("forfeitGame", {});
+        sendMessage("rematchRequest", { requested: false });
+    });
 
     return (
         <div className="game">
@@ -90,7 +93,14 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
                         isGameOver={isGameOver}
                         ws={ws}
                         sendMessage={sendMessage}
-                        playerSkins={gameSession ? [gameSession.player1_skin, gameSession.player2_skin] : []}
+                        playerSkins={
+                            gameSession
+                                ? [
+                                      gameSession.player1_skin,
+                                      gameSession.player2_skin,
+                                  ]
+                                : []
+                        }
                     />
                     <OnlineGameMenu
                         isActivePlayer={isActivePlayer}

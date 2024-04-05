@@ -133,7 +133,8 @@ Bugs To Fix:
     - Reload page gives error because it doesn't remember the game_session (fixed)
         - If no game_session, redirect to home page
     - Player records are not being updated in database
-    - There's no time limit on each players turn
+    - Get rid of game session when players leave game
+    - There's no time limit on each players turn (fixed)
 
 
 ---------------------------------------------
