@@ -120,6 +120,32 @@ TO DO:
             - Keep track of existing pieces in the board (done)
             - Columns call hook on board, that places piece (done)
 
+    - Online Ranked
+        - Matchmaking
+            - Players joins matchmaking
+                - A balanced binary search tree (e.g., AVL tree, Red-Black tree) or a skip list???
+                - Add them to a priority queue (user_data, client web socket, rating_range = 50, join_time)
+                - Priority is ELO
+                    - How navigable is a priority queue? 
+                    - Search back and forth from spot?
+                        - If you start from one end, and that player did not find match.
+                        that player and all previous players are an invalid match for the 
+                        next player, so you don't need to search backwards
+                    - Implemented via list? Should I make a class for this ranked matchmaking queue?
+            - While priority queue has people
+                - Try to match people within their acceptable ranges
+                    - Both ranges have to match up??? Or ranges just have to overlap??
+                - If no match found after 1 second, increase rating_range by 10
+                - If match found, make game session like normal, add extra variable to track if ranked
+        - Frontend
+            - OnlineGame component, add prop to track if ranked
+                - display players ranks in the side margins if ranked
+        - After match
+            - In game_session, if ranked
+                - Adjust ELO and Rank accordingly
+                    - add a rankedService.js for these calculations?
+                - Update on frontend
+
 
 
 
