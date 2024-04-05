@@ -1,5 +1,12 @@
+.skins-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 85%;
+}
+
 .selector-buttons {
-    padding: 30px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -9,12 +16,16 @@
 .skin-button {
     width: var(--game-piece-dim);
     height: var(--game-piece-dim);
-    border-radius: 50%;
     margin: 7.5px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     border-style: solid;
     border-color: transparent;
     border-width: 5px;
+    box-sizing: border-box;
 }
+
 
 .skin-button:hover {
     background-color: rgba(255, 255, 255, 0.2);
@@ -22,4 +33,40 @@
 
 .skin-button.selected {
     border-color: black;
+}
+
+.skin-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--game-piece-dim), 1fr));
+    gap: 15px;
+}
+
+.skin-selection-button {
+    width: var(--game-piece-dim);
+    height: var(--game-piece-dim);
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.skins-menu p {
+    font-size: x-large;
+}
+
+.apply-button {
+    font-family: var(--ui-font);
+    color: white;
+    font-size: 24px;
+    padding: 20px 20px;
+    height: 17.647059%;
+    margin-top: auto; /* Push the button to the bottom */
+    width: 100%; /* Adjust the width as needed */
+    justify-content: center;
+    cursor: pointer;
+}
+
+.apply-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }

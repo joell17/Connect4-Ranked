@@ -11,19 +11,19 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
     const [activeMenuItemContent, setActiveMenuItemContent] = useState(null);
     const [isMatchmaking, setIsMatchmaking] = useState(false);
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            const response = await fetch(`${config.backendURL}/auth/user`, {
-                credentials: "include",
-            });
-            if (response.ok) {
-                const userData = await response.json();
-                setUserData(userData); // Set user data state
-            } else {
-                console.error("Failed to fetch user data");
-            }
-        };
+    const fetchUserData = async () => {
+        const response = await fetch(`${config.backendURL}/auth/user`, {
+            credentials: "include",
+        });
+        if (response.ok) {
+            const userData = await response.json();
+            setUserData(userData); // Set user data state
+        } else {
+            console.error("Failed to fetch user data");
+        }
+    };
 
+    useEffect(() => {
         fetchUserData();
     }, []);
 
@@ -128,15 +128,27 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
                     label="Skins"
                     setActiveMenuItems={setActiveMenuItemContent}
                 >
-                    <SkinMenuContent />
+                    {userData ? (
+                        <SkinMenuContent user_data={userData} fetchUserData={fetchUserData}/>
+                    ) : (
+                        <SkinMenuContent
+                            user_data={{
+                                primary_skin: "red",
+                                secondary_skin: "yellow",
+                                skins_unlocked: ["red", "yellow"],
+                            }}
+                            fetchUserData={fetchUserData}
+                        />
+                    )}
                 </MenuButton>
+
                 {userData ? (
                     <MenuButton
                         label="Profile"
                         setActiveMenuItems={setActiveMenuItemContent}
                     >
                         {/* Content for Profile, e.g., displaying user's email */}
-                        <div>
+                        <div className="profile-menu">
                             <p>Email: {userData.email}</p>
                             <p>Rank: {userData.rank}</p>
                             <p>Wins: {userData.wins}</p>

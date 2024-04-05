@@ -22,6 +22,7 @@ const sessionParser = session({
   store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
 });
 
+app.use(express.json());
 app.use(sessionParser);
 app.use(corsConfig);
 passportConfig(passport); // Configure passport

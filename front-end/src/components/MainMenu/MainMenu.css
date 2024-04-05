@@ -38,11 +38,13 @@
 .side-menu p {
   font-family: var(--ui-font);
   color: white;
-  
+}
+
+.profile-menu p {
+  padding-left: 5%;
 }
 
 .main-menu-top-level.active .side-menu {
-  padding-left: 20px;
   width: 300px;
 }
 
@@ -51,7 +53,7 @@
   color: white;
   font-size: 24px;
   padding: 10px 20px;
-  max-height: 100px;
+  height: 15%;
   justify-content: center;
   position: absolute;
   bottom: 0;
@@ -67,6 +69,7 @@
   padding: 20px;
   /* Add padding for the side menu content */
 }
+
 .logout-button,
 .profile-info,
 .google-login-button {
@@ -94,7 +97,8 @@
 
 .google-login-button {
   background: #4285F4;
-  margin-bottom: 20px; /* Add some space between the login button and the profile info */
+  margin-bottom: 20px;
+  /* Add some space between the login button and the profile info */
 }
 
 .google-login-button:hover {
@@ -112,15 +116,18 @@
 .mm-button-div {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center items horizontally */
-  justify-content: center; /* Center items vertically */
+  align-items: center;
+  /* Center items horizontally */
+  justify-content: center;
+  /* Center items vertically */
   margin-right: 20px;
 }
 
 .matchmaking-button {
   display: inline-block;
   font-family: var(--ui-font);
-  background: #4caf50; /* Green background */
+  background: #4caf50;
+  /* Green background */
   color: white;
   border-radius: 5px;
   padding: 10px 20px;
@@ -133,6 +140,6 @@
 }
 
 .matchmaking-button:hover {
-  background: #45a049; /* Darker green on hover */
+  background: #45a049;
+  /* Darker green on hover */
 }
-
