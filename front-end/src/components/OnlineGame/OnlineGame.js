@@ -4,11 +4,13 @@ import OnlineBoard from "./OnlineBoard";
 import OnlineGameMenu from "./OnlineGameMenu";
 import { useNavigate } from "react-router-dom";
 
-const OnlineGame = ({ ws, gameSession, user_data }) => {
+const OnlineGame = ({ ws, gameSession, user_data, isRanked }) => {
     const [isActivePlayer, setIsActivePlayer] = useState(false);
     const [isGameOver, setIsGameOver] = useState(false);
     const [winner, setWinner] = useState("Joe");
     const [overlayVisible, setOverlayVisible] = useState(false);
+    const [player1Elo, setPlayer1Elo] = useState(gameSession ? gameSession.player1_elo : 0);
+    const [player2Elo, setPlayer2Elo] = useState(gameSession ? gameSession.player2_elo : 0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -87,28 +89,40 @@ const OnlineGame = ({ ws, gameSession, user_data }) => {
         <div className="game">
             {!overlayVisible ? (
                 <>
-                    <OnlineBoard
-                        isActivePlayer={isActivePlayer}
-                        togglePlayer={togglePlayer}
-                        isGameOver={isGameOver}
-                        ws={ws}
-                        sendMessage={sendMessage}
-                        playerSkins={
-                            gameSession
-                                ? [
-                                      gameSession.player1_skin,
-                                      gameSession.player2_skin,
-                                  ]
-                                : []
-                        }
-                    />
-                    <OnlineGameMenu
-                        isActivePlayer={isActivePlayer}
-                        isGameOver={isGameOver}
-                        sendMessage={sendMessage}
-                        winner={winner}
-                        ws={ws}
-                    />
+                    <div className="user-stats">
+                        <p>Player 1:</p>
+                        <p>{gameSession ? gameSession.player1_username : ""}</p>
+                        <p>ELO: {player1Elo}</p>
+                    </div>
+                    <div>
+                        <OnlineBoard
+                            isActivePlayer={isActivePlayer}
+                            togglePlayer={togglePlayer}
+                            isGameOver={isGameOver}
+                            ws={ws}
+                            sendMessage={sendMessage}
+                            playerSkins={
+                                gameSession
+                                    ? [
+                                          gameSession.player1_skin,
+                                          gameSession.player2_skin,
+                                      ]
+                                    : []
+                            }
+                        />
+                        <OnlineGameMenu
+                            isActivePlayer={isActivePlayer}
+                            isGameOver={isGameOver}
+                            sendMessage={sendMessage}
+                            winner={winner}
+                            ws={ws}
+                        />
+                    </div>
+                    <div className="user-stats">
+                        <p>Player 2:</p>
+                        <p>{gameSession ? gameSession.player2_username : ""}</p>
+                        <p>ELO: {player2Elo}</p>
+                    </div>
                 </>
             ) : (
                 <div className="overlay">

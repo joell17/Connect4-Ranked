@@ -72,6 +72,7 @@ wss.on("connection", (ws, req) => {
 
     ws.on("close", () => {
         // Remove the user from the matchmaking queue if they disconnect
+        if (!ws.user) return;
         matchmakingService.removeFromQueue(ws.user);
         matchmakingService.rankedMatchQueue.removePlayer(ws.user);
     });

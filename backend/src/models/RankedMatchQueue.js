@@ -60,6 +60,10 @@ class RankedMatchQueue {
                         id: gameSession.id,
                         player1_skin: gameSession.players[0].skin,
                         player2_skin: gameSession.players[1].skin,
+                        player1_username: gameSession.players[0].username,
+                        player2_username: gameSession.players[1].username,
+                        player1_elo: gameSession.players[0].elo,
+                        player2_elo: gameSession.players[1].elo,
                         isPlayer1: true,
                     },
                 })

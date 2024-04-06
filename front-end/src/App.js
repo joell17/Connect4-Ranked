@@ -69,7 +69,8 @@ function App() {
         <Routes>
           <Route path="/" element={<MainMenu userData={userData} setUserData={setUserData} ws={ws} setGameSession={setGameSession}/>} />
           <Route path="/local-pvp" element={<LocalGame />} />
-          <Route path="/online-casual" element={<OnlineGame ws={ws} gameSession={gameSession} user_data={userData} />} />
+          <Route path="/online-casual" element={<OnlineGame ws={ws} gameSession={gameSession} user_data={userData} isRanked={false}/>} />
+          <Route path="/online-ranked" element={<OnlineGame ws={ws} gameSession={gameSession} user_data={userData} isRanked={true}/>} />
         </Routes>
       </BrowserRouter>
     </div>

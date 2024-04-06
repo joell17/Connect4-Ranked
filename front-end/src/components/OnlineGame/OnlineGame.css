@@ -2,7 +2,7 @@
     background-color: var(--color-primary);
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     padding-top: 2.5%;
     justify-content: center;
@@ -14,6 +14,18 @@
         justify-content: flex-start;
         /* Adjust layout for smaller screens */
     }
+}
+
+.user-stats {
+    width: 10%;
+}
+
+.user-stats p {
+    color: var(--color-secondary);
+    font-size: 24px;
+    font-family: "My UI Font", sans-serif;
+    padding: 0;
+    margin: 3%;
 }
 
 .overlay {

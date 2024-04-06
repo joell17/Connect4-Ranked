@@ -42,10 +42,7 @@ class GameSession {
     }
 
     endSession() {
-        if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-            this.timerInterval = null;
-        }
+        this.stopTimer();
     }
 
     startTimer() {
@@ -67,9 +64,18 @@ class GameSession {
         clearInterval(this.timerInterval);
         this.timerInterval = null;
 
+        if (this.status !== "ongoing") return;
+
         // Consider it a forfeit when the timer runs out
         this.switchPlayer();
         this.winHook();
+    }
+
+    stopTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
     }
 
     resetTimer() {
@@ -125,6 +131,7 @@ class GameSession {
     }
 
     winHook() {
+        this.stopTimer();
         this.status = "completed";
         this.winner = this.players[this.currentPlayerIndex].username;
 
