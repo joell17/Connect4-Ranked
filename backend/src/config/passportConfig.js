@@ -30,16 +30,17 @@ const passportConfig = (passport) => {
               games_played: 0,
               losses: 0,
               primary_skin: "red",
-              rank: "Unranked",
+              rank: "Iron",
               secondary_skin: "yellow",
               settings: {
                 music_volume: 50,
                 notifications_enabled: true,
                 sound_volume: 50,
               },
-              skins_unlocked: ["red", "yellow"],
+              skins_unlocked: ["red", "yellow", "green"],
               username: username,
               wins: 0,
+              elo: 1000
             },
           });
         }

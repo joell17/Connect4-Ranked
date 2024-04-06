@@ -1,4 +1,5 @@
 const GameSession = require("../models/GameSession");
+const RankedMatchQueue = require('../models/RankedMatchQueue');
 const WebSocket = require("ws");
 
 class MatchmakingService {

@@ -23,16 +23,21 @@ describe("GameSession", () => {
             username: "Player1",
             primary_skin: "Skin1",
             secondary_skin: "Skin2",
+            elo: 1000,
+            rank: 'Iron'
         };
         player2 = {
             id: "2",
             username: "Player2",
             primary_skin: "Skin2",
             secondary_skin: "Skin1",
+            elo: 1050,
+            rank: 'Iron'
         };
-        gameSession = new GameSession(player1, player2, true);
+        gameSession = new GameSession(player1, player2);
         // Mock the updatePlayerRecords method
         gameSession.updatePlayerRecords = jest.fn();
+        gameSession.updatePlayerRanks = jest.fn();
     });
 
     afterEach(() => {
@@ -43,7 +48,6 @@ describe("GameSession", () => {
         expect(gameSession.players[0].username).toBe("Player1");
         expect(gameSession.players[1].username).toBe("Player2");
         expect(gameSession.status).toBe("ongoing");
-        expect(gameSession.isRanked).toBeTruthy();
         expect(gameSession.timer).toBe(30);
     });
 

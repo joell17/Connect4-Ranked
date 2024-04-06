@@ -2,6 +2,7 @@ const BoardData = require("./BoardData");
 const WebSocket = require("ws");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const RankingService = require('../services/rankingService');
 
 class GameSession {
     constructor(player1, player2, isRanked=false) {
@@ -13,6 +14,8 @@ class GameSession {
                 skin: player1.primary_skin,
                 client: null,
                 rematchRequested: false,
+                elo: player1.elo,
+                rank: player1.rank
             },
             {
                 id: player2.id,
@@ -23,6 +26,8 @@ class GameSession {
                         : player2.primary_skin,
                 client: null,
                 rematchRequested: false,
+                elo: player2.elo,
+                rank: player2.rank
             },
         ];
         this.boardData = new BoardData(this.winHook.bind(this));
@@ -127,9 +132,50 @@ class GameSession {
         const winner_id = this.players[this.currentPlayerIndex].id;
         const loser_id = this.players[this.currentPlayerIndex === 0 ? 1 : 0].id;
 
-        this.updatePlayerRecords(winner_id, loser_id);
+        this.updatePlayerRecords(winner_id, loser_id);  // Should there be an await here?
+
+        if (this.isRanked) {
+            this.updatePlayerRanks(this.currentPlayerIndex);
+        }
 
         this.sendPlayersMessage("gameOver", { winner_username: this.winner });
+    }
+
+    async updatePlayerRanks(winner_index) {
+        try {
+            let winnerInfo = this.players[winner_index];
+            let loserInfo = this.players[winner_index === 0 ? 1 : 0];
+            
+            let oldWinnerElo = winnerInfo.elo;
+            winnerInfo.elo = RankingService.CalculateNewRating(winnerInfo.elo, loserInfo.elo, 'win');
+            loserInfo.elo = RankingService.CalculateNewRating(loserInfo.elo, oldWinnerElo, 'lose');
+
+            winnerInfo.rank = RankingService.DetermineDivision(winnerInfo.elo);
+            loserInfo.rank = RankingService.DetermineDivision(loserInfo.elo);
+
+            await prisma.user_data.update({
+                where: {
+                    id: winnerInfo.id
+                },
+                data: {
+                    elo: winnerInfo.elo, // Corrected syntax
+                    rank: winnerInfo.rank
+                }
+            });
+
+            await prisma.user_data.update({
+                where: {
+                    id: loserInfo.id
+                },
+                data: {
+                    elo: loserInfo.elo, // Corrected syntax
+                    rank: loserInfo.rank
+                }
+            });
+        }
+        catch (error) {
+            console.error("Failed to update player rankings:", error);
+        }
     }
 
     async updatePlayerRecords(winner_id, loser_id) {
