@@ -2,10 +2,10 @@ const BoardData = require("./BoardData");
 const WebSocket = require("ws");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const RankingService = require('../services/rankingService');
+const RankingService = require("../services/rankingService");
 
 class GameSession {
-    constructor(player1, player2, isRanked=false) {
+    constructor(player1, player2, isRanked = false) {
         this.id = this.generateUniqueId();
         this.players = [
             {
@@ -15,7 +15,7 @@ class GameSession {
                 client: null,
                 rematchRequested: false,
                 elo: player1.elo,
-                rank: player1.rank
+                rank: player1.rank,
             },
             {
                 id: player2.id,
@@ -27,7 +27,7 @@ class GameSession {
                 client: null,
                 rematchRequested: false,
                 elo: player2.elo,
-                rank: player2.rank
+                rank: player2.rank,
             },
         ];
         this.boardData = new BoardData(this.winHook.bind(this));
@@ -139,23 +139,35 @@ class GameSession {
         const winner_id = this.players[this.currentPlayerIndex].id;
         const loser_id = this.players[this.currentPlayerIndex === 0 ? 1 : 0].id;
 
-        this.updatePlayerRecords(winner_id, loser_id);  // Should there be an await here?
+        this.updatePlayerRecords(winner_id, loser_id); // Should there be an await here?
 
         if (this.isRanked) {
             this.updatePlayerRanks(this.currentPlayerIndex);
         }
 
-        this.sendPlayersMessage("gameOver", { winner_username: this.winner });
+        this.sendPlayersMessage("gameOver", {
+            winner_username: this.winner,
+            player1_elo: this.players[0].elo,
+            player2_elo: this.players[1].elo,
+        });
     }
 
     async updatePlayerRanks(winner_index) {
         try {
             let winnerInfo = this.players[winner_index];
             let loserInfo = this.players[winner_index === 0 ? 1 : 0];
-            
+
             let oldWinnerElo = winnerInfo.elo;
-            winnerInfo.elo = RankingService.CalculateNewRating(winnerInfo.elo, loserInfo.elo, 'win');
-            loserInfo.elo = RankingService.CalculateNewRating(loserInfo.elo, oldWinnerElo, 'lose');
+            winnerInfo.elo = RankingService.CalculateNewRating(
+                winnerInfo.elo,
+                loserInfo.elo,
+                "win"
+            );
+            loserInfo.elo = RankingService.CalculateNewRating(
+                loserInfo.elo,
+                oldWinnerElo,
+                "lose"
+            );
             winnerInfo.client.elo = winnerInfo.elo;
             loserInfo.client.elo = loserInfo.elo;
 
@@ -166,25 +178,24 @@ class GameSession {
 
             await prisma.user_data.update({
                 where: {
-                    id: winnerInfo.id
+                    id: winnerInfo.id,
                 },
                 data: {
                     elo: winnerInfo.elo, // Corrected syntax
-                    rank: winnerInfo.rank
-                }
+                    rank: winnerInfo.rank,
+                },
             });
 
             await prisma.user_data.update({
                 where: {
-                    id: loserInfo.id
+                    id: loserInfo.id,
                 },
                 data: {
                     elo: loserInfo.elo, // Corrected syntax
-                    rank: loserInfo.rank
-                }
+                    rank: loserInfo.rank,
+                },
             });
-        }
-        catch (error) {
+        } catch (error) {
             console.error("Failed to update player rankings:", error);
         }
     }

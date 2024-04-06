@@ -16,11 +16,12 @@ class RankedMatchQueue {
     addPlayer(user_data, client_ws) {
         const playerData = new PlayerData(user_data, client_ws);
         this.tree.insertNode(playerData);
-        if (!matching) startMatching();
+        if (!this.matching) this.startMatching();
     }
 
     // Remove a player from the queue
-    removePlayer(playerData) {
+    removePlayer(user_data) {
+        let playerData = new PlayerData(user_data, null);
         this.tree.deleteNode(playerData);
     }
 
@@ -33,6 +34,7 @@ class RankedMatchQueue {
             // Wait a bit before trying to match again
             await new Promise((resolve) => setTimeout(resolve, 1000));
         }
+        this.matching = false;
     }
 
     makeGameSessionsFromPairs(pairs) {
@@ -41,8 +43,8 @@ class RankedMatchQueue {
             this.gameSessions[gameSession.id] = gameSession;
             let success = this.notifyPlayers(pair[0], pair[1], gameSession);
             if (!success) console.log('failed matchmaking');  // Maybe notify players of failed matchmaking
-            this.removePlayer(pair[0]);
-            this.removePlayer(pair[1]);
+            this.removePlayer(pair[0].user_data);
+            this.removePlayer(pair[1].user_data);
         });
     }
 
@@ -55,7 +57,7 @@ class RankedMatchQueue {
             gameSession.players[0].client = player1Data.client_ws;
             player1Data.client_ws.send(
                 JSON.stringify({
-                    type: "gameSessionCreated",
+                    type: "rankedGameSessionCreated",
                     gameSession: {
                         id: gameSession.id,
                         player1_skin: gameSession.players[0].skin,
@@ -75,11 +77,15 @@ class RankedMatchQueue {
             gameSession.players[1].client = player2Data.client_ws;
             player2Data.client_ws.send(
                 JSON.stringify({
-                    type: "gameSessionCreated",
+                    type: "rankedGameSessionCreated",
                     gameSession: {
                         id: gameSession.id,
                         player1_skin: gameSession.players[0].skin,
                         player2_skin: gameSession.players[1].skin,
+                        player1_username: gameSession.players[0].username,
+                        player2_username: gameSession.players[1].username,
+                        player1_elo: gameSession.players[0].elo,
+                        player2_elo: gameSession.players[1].elo,
                         isPlayer1: false,
                     },
                 })
@@ -124,6 +130,7 @@ class RankedMatchQueue {
                     break;
                 }
             }
+            player1.rating_range += 10;
         }
 
         return pairs;

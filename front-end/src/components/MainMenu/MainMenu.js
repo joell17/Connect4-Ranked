@@ -41,6 +41,14 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
                         navigate("/online-casual");
                         // Navigate to the game page or update the UI as needed
                     }
+                    else if (message.type === "rankedGameSessionCreated") {
+                        console.log("Ranked game was found!!!");
+                        setIsMatchmaking(false); // Matchmaking finished
+                        setActiveMenuItemContent(activeMenuItemContent);
+                        setGameSession(message.gameSession);
+                        navigate("/online-ranked");
+
+                    }
                 } catch (error) {
                     console.error("Received non-JSON message:", event.data);
                 }
@@ -54,10 +62,10 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
         }
     }, [ws]);
 
-    const joinMatchmaking = () => {
+    const joinMatchmaking = (isRanked=false) => {
         if (ws && ws.readyState === WebSocket.OPEN) {
             // Send a message to the server to join matchmaking
-            ws.send(JSON.stringify({ action: "joinMatchmaking" }));
+            ws.send(JSON.stringify({ action: isRanked ? "joinRankedMatchmaking" : "joinMatchmaking" }));
             setIsMatchmaking(true); // Set matchmaking status to true
             setActiveMenuItemContent(activeMenuItemContent);
         } else {
@@ -122,14 +130,37 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
                     label="Online Ranked"
                     setActiveMenuItems={setActiveMenuItemContent}
                 >
-                    {/* Content for Online Ranked */}
+                    {userData ? ( // Check if user is logged in
+                        isMatchmaking ? (
+                            <p>Matchmaking in progress...</p>
+                        ) : (
+                            <div className="mm-button-div">
+                                <button
+                                    onClick={() => {
+                                        joinMatchmaking(true);
+                                        setActiveMenuItemContent(
+                                            <p>Matchmaking in progress...</p>
+                                        );
+                                    }}
+                                    className="matchmaking-button"
+                                >
+                                    Start Matchmaking
+                                </button>
+                            </div>
+                        )
+                    ) : (
+                        <p>Please log in to start ranked matchmaking.</p> // Message to prompt user to log in
+                    )}
                 </MenuButton>
                 <MenuButton
                     label="Skins"
                     setActiveMenuItems={setActiveMenuItemContent}
                 >
                     {userData ? (
-                        <SkinMenuContent user_data={userData} fetchUserData={fetchUserData}/>
+                        <SkinMenuContent
+                            user_data={userData}
+                            fetchUserData={fetchUserData}
+                        />
                     ) : (
                         <SkinMenuContent
                             user_data={{
@@ -154,6 +185,7 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
                             <p>Wins: {userData.wins}</p>
                             <p>Losses: {userData.losses}</p>
                             <p>Games Played: {userData.games_played}</p>
+                            <p>ELO: {userData.elo}</p>
                             <button
                                 onClick={handleLogout}
                                 className="logout-button"

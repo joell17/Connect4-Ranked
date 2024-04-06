@@ -11,6 +11,7 @@ class RankingService {
         'Masters': 9999,  // The cap ranking should probably be something like 2500
     }
     static ELO_CAP = 2500;
+    static ELO_MIN = 750;
     static ACTUAL_SCORES = {
         'win': 1,
         'draw': 0.5,
@@ -26,6 +27,7 @@ class RankingService {
         let expectedScore = RankingService.CalculateExpectedScore(RatingA, RatingB);
         let newRating = Math.round(RatingA + RankingService.MAX_RATING_CHANGE * (actualScore - expectedScore));
 
+        if (newRating < RankingService.ELO_MIN) newRating = RankingService.ELO_MIN;
         return newRating > RankingService.ELO_CAP ? RankingService.ELO_CAP : newRating;
     }
 

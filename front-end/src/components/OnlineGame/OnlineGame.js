@@ -60,6 +60,8 @@ const OnlineGame = ({ ws, gameSession, user_data, isRanked }) => {
                 case "gameOver":
                     setWinner(message.winner_username); // Use this to show winner in GameMenu, should be the username
                     setIsGameOver(true);
+                    setPlayer1Elo(message.player1_elo);
+                    setPlayer2Elo(message.player2_elo);
                     break;
                 case "rematchAccepted":
                     // TODO: Going to have to make sure the loser goes first upon rematch
