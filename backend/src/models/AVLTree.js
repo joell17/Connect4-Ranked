@@ -61,12 +61,13 @@ const AVLTree = function () {
             return new Node(item);
         }
 
-        if (item < node.item) {
+        const compareResult = item.compareTo(node.item);
+        if (compareResult < 0) {
             node.left = insertNodeHelper(node.left, item);
-        } else if (item > node.item) {
+        } else if (compareResult > 0) {
             node.right = insertNodeHelper(node.right, item);
         } else {
-            return node;
+            return node; // Item already exists, no need to insert
         }
 
         // update the balance factor of each node
@@ -77,18 +78,18 @@ const AVLTree = function () {
         let balanceFactor = this.getBalanceFactor(node);
 
         if (balanceFactor > 1) {
-            if (item < node.left.item) {
+            if (item.compareTo(node.left.item) < 0) {
                 return this.rightRotate(node);
-            } else if (item > node.left.item) {
+            } else {
                 node.left = this.leftRotate(node.left);
                 return this.rightRotate(node);
             }
         }
 
         if (balanceFactor < -1) {
-            if (item > node.right.item) {
+            if (item.compareTo(node.right.item) > 0) {
                 return this.leftRotate(node);
-            } else if (item < node.right.item) {
+            } else {
                 node.right = this.rightRotate(node.right);
                 return this.leftRotate(node);
             }
@@ -99,7 +100,6 @@ const AVLTree = function () {
 
     // insert a node
     this.insertNode = (item) => {
-        // console.log(root);
         root = insertNodeHelper(root, item);
     };
 
@@ -118,31 +118,33 @@ const AVLTree = function () {
         if (root == null) {
             return root;
         }
-        if (item < root.item) {
+
+        const compareResult = item.compareTo(root.item);
+        if (compareResult < 0) {
             root.left = deleteNodeHelper(root.left, item);
-        } else if (item > root.item) {
+        } else if (compareResult > 0) {
             root.right = deleteNodeHelper(root.right, item);
         } else {
+            // Node with only one child or no child
             if (root.left === null || root.right === null) {
-                let temp = null;
-                if (temp == root.left) {
-                    temp = root.right;
-                } else {
-                    temp = root.left;
-                }
-
+                let temp = root.left ? root.left : root.right;
+                // No child case
                 if (temp == null) {
                     temp = root;
                     root = null;
                 } else {
-                    root = temp;
+                    // One child case
+                    root = temp; // Copy the contents of the non-empty child
                 }
             } else {
+                // Node with two children: Get the inorder successor (smallest in the right subtree)
                 let temp = this.nodeWithMimumValue(root.right);
                 root.item = temp.item;
                 root.right = deleteNodeHelper(root.right, temp.item);
             }
         }
+
+        // If the tree had only one node then return
         if (root == null) {
             return root;
         }
@@ -152,22 +154,29 @@ const AVLTree = function () {
             Math.max(this.height(root.left), this.height(root.right)) + 1;
 
         let balanceFactor = this.getBalanceFactor(root);
-        if (balanceFactor > 1) {
-            if (this.getBalanceFactor(root.left) >= 0) {
-                return this.rightRotate(root);
-            } else {
-                root.left = this.leftRotate(root.left);
-                return this.rightRotate(root);
-            }
+
+        // Left Left Case
+        if (balanceFactor > 1 && this.getBalanceFactor(root.left) >= 0) {
+            return this.rightRotate(root);
         }
-        if (balanceFactor < -1) {
-            if (this.getBalanceFactor(root.right) <= 0) {
-                return this.leftRotate(root);
-            } else {
-                root.right = this.rightRotate(root.right);
-                return this.leftRotate(root);
-            }
+
+        // Left Right Case
+        if (balanceFactor > 1 && this.getBalanceFactor(root.left) < 0) {
+            root.left = this.leftRotate(root.left);
+            return this.rightRotate(root);
         }
+
+        // Right Right Case
+        if (balanceFactor < -1 && this.getBalanceFactor(root.right) <= 0) {
+            return this.leftRotate(root);
+        }
+
+        // Right Left Case
+        if (balanceFactor < -1 && this.getBalanceFactor(root.right) > 0) {
+            root.right = this.rightRotate(root.right);
+            return this.leftRotate(root);
+        }
+
         return root;
     };
 
@@ -186,6 +195,19 @@ const AVLTree = function () {
             callback(node.item);
             preOrderHelper(node.left, callback);
             preOrderHelper(node.right, callback);
+        }
+    };
+
+    // Inorder traversal of the tree
+    this.inOrder = (callback) => {
+        inOrderHelper(root, callback);
+    };
+
+    const inOrderHelper = (node, callback) => {
+        if (node) {
+            inOrderHelper(node.left, callback);
+            callback(node.item);
+            inOrderHelper(node.right, callback);
         }
     };
 };

@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 class GameSession {
-    constructor(player1, player2) {
+    constructor(player1, player2, isRanked=false) {
         this.id = this.generateUniqueId();
         this.players = [
             {
@@ -33,6 +33,7 @@ class GameSession {
         this.timer = 30; // 30 seconds for each turn
         this.timerInterval = null;
         this.startTimer();
+        this.isRanked = isRanked;
     }
 
     endSession() {

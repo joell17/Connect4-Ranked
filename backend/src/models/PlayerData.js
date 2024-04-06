@@ -5,10 +5,16 @@ class PlayerData {
         this.client_ws = client_ws;
         this.join_time = new Date().getTime();
         this.rating_range = 50;
+        this.id = user_data.id;
     }
 
-    valueOf() {
-        return this.elo;
+    compareTo(other) {
+        if (this.elo !== other.elo) {
+            return this.elo - other.elo;
+        } else {
+            console.log(this.id);
+            return this.id.localeCompare(other.id); // Compare IDs if Elo ratings are equal
+        }
     }
 }
 
