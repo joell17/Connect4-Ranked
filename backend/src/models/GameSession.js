@@ -149,9 +149,13 @@ class GameSession {
             let oldWinnerElo = winnerInfo.elo;
             winnerInfo.elo = RankingService.CalculateNewRating(winnerInfo.elo, loserInfo.elo, 'win');
             loserInfo.elo = RankingService.CalculateNewRating(loserInfo.elo, oldWinnerElo, 'lose');
+            winnerInfo.client.elo = winnerInfo.elo;
+            loserInfo.client.elo = loserInfo.elo;
 
             winnerInfo.rank = RankingService.DetermineDivision(winnerInfo.elo);
             loserInfo.rank = RankingService.DetermineDivision(loserInfo.elo);
+            winnerInfo.client.rank = winnerInfo.rank;
+            loserInfo.client.rank = loserInfo.rank;
 
             await prisma.user_data.update({
                 where: {

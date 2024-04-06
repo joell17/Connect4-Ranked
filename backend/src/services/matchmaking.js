@@ -7,6 +7,7 @@ class MatchmakingService {
         this.queue = [];
         this.gameSessions = {}; // Store active game sessions
         this.wss = wss;
+        this.rankedMatchQueue = new RankedMatchQueue(this.gameSessions, wss);
 
         this.wss.on("connection", (ws) => {
             ws.on("message", (message) => {
@@ -145,6 +146,16 @@ class MatchmakingService {
     addToQueue(user) {
         this.queue.push(user); // Enqueue the entire user_data object
         this.tryMatchmaking();
+    }
+
+    removeFromQueue(user) {
+        // Find the index of the user in the queue
+        const index = this.queue.findIndex(queueUser => queueUser.id === user.id);
+
+        // If the user is found, remove them from the queue
+        if (index !== -1) {
+            this.queue.splice(index, 1);
+        }
     }
 
     tryMatchmaking() {

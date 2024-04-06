@@ -16,7 +16,7 @@ class RankedMatchQueue {
     addPlayer(user_data, client_ws) {
         const playerData = new PlayerData(user_data, client_ws);
         this.tree.insertNode(playerData);
-        // if (!matching) startMatching();
+        if (!matching) startMatching();
     }
 
     // Remove a player from the queue
