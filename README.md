@@ -1,6 +1,3 @@
-Certainly! Here's a draft for a GitHub README for your project. You can modify and expand it as needed to better suit the specific details and features of your Connect 4 online game platform.
-
-```markdown
 # Connect 4 Online Game Platform
 
 This repository contains the full source code for the Connect 4 Online Game Platform, a real-time multiplayer game built using React, Node.js, and WebSocket. The game supports both casual and ranked matchmaking modes, enabling players to compete against each other in a classic Connect 4 setup.
@@ -42,47 +39,54 @@ This repository contains the full source code for the Connect 4 Online Game Plat
    cd connect4-online
    ```
 
-2. **Install dependencies**
-   ```bash
-   cd backend
-   npm install
-   cd ../frontend
-   npm install
-   ```
 
-3. **Configure environment variables**
-   Create a `.env` file in the `backend` directory and add the following variables:
-   ```
-   PORT=3000
-   DATABASE_URL=mongodb://localhost:27017/connect4db
-   GOOGLE_CLIENT_ID=your_google_client_id
-   GOOGLE_CLIENT_SECRET=your_google_client_secret
-   SESSION_SECRET=your_secret
-   KEY_PATH=path_to_your_private.key
-   CERT_PATH=path_to_your_certificate.crt
-   ```
+# Installation and Setup Instructions
 
-4. **Configure Nginx**
-   Set up Nginx as a reverse proxy to direct traffic to your application and handle HTTPS.
+## Install dependencies
 
-5. **Start the backend server**
-   ```bash
-   cd backend
-   npm start
-   ```
+```bash
+cd backend
+npm install
+cd ../frontend
+yarn install
+```
 
-6. **Start the frontend application**
-   ```bash
-   cd ../frontend
-   npm start
-   ```
+## Configure environment variables
+
+Create a `.env` file in the `backend` directory and add the following variables:
+
+```
+PORT=3000
+DATABASE_URL=mongodb://localhost:27017/connect4db
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+SESSION_SECRET=your_secret
+KEY_PATH=path_to_your_private.key
+CERT_PATH=path_to_your_certificate.crt
+```
+
+## Configure Nginx
+
+Set up Nginx as a reverse proxy to direct traffic to your application and handle HTTPS.
+
+## Start the backend server
+
+```bash
+cd backend
+npm start
+```
+
+## Start the frontend application
+
+```bash
+cd ../frontend
+yarn start
+```
 
 ## Usage
 
-Once both the front end and backend are running, navigate to `https://localhost:3001` to access the game.
+Once both the front end and back end are running, navigate to `https://localhost:3001` to access the game.
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or create an issue for any bugs or improvements.
-
-This README provides a comprehensive overview of your project, its features, the technology stack, and step-by-step setup instructions. You can enhance it further by adding screenshots of the game, detailed documentation links, or a wiki for complex functionalities.
