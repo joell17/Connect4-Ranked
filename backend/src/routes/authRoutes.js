@@ -19,7 +19,7 @@ router.get(
         req.session.user = req.user;
 
         // Use the origin from the request headers for the redirect
-        const origin = req.headers.origin || "http://localhost:3001";
+        const origin = req.headers.origin || "https://localhost:3001";
         res.redirect(`${origin}/`); // Redirect to the origin of the request
     }
 );
@@ -37,8 +37,10 @@ router.get("/user", async (req, res) => {
             if (user_data) {
                 req.session.user = user_data;
                 res.json(user_data); // Send user data
+                console.log('User was found');
             } else {
                 // User not found in the database
+                console.log('User not found');
                 res.status(404).json({ message: "User not found" });
             }
         } catch (error) {
@@ -64,6 +66,7 @@ router.post("/user/change-skins", async (req, res) => {
             });
 
             if (updateResult) {
+                console.log('Skins updated successfully');
                 res.json({ message: "Skins updated successfully" }); // Confirm successful update
             } else {
                 res.status(404).json({ message: "User not found" }); // User not found in the database

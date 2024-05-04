@@ -1,17 +1,21 @@
 require("dotenv").config();
 const express = require("express");
-const { PrismaClient } = require("@prisma/client");
 const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const http = require("http");
 const WebSocket = require("ws");
 const corsConfig = require("./config/corsConfig");
 const passportConfig = require("./config/passportConfig");
+const https = require("https");
+const fs = require("fs");
 
-const prisma = new PrismaClient();
+const options = {
+    key: fs.readFileSync(process.env.KEY_PATH),
+    cert: fs.readFileSync(process.env.CERT_PATH),
+};
+
 const app = express();
-const server = http.createServer(app); // Create an HTTP server for the express app
+const server = https.createServer(options, app);
 const wss = new WebSocket.Server({ server }); // Attach the WebSocket server to the HTTP server
 
 // Session configuration
@@ -20,6 +24,11 @@ const sessionParser = session({
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
+    cookie: {
+        secure: true, // Add this line
+        httpOnly: true, // You can also add this for extra security
+        sameSite: 'lax'
+    }
 });
 
 app.use(express.json());
@@ -41,7 +50,6 @@ app.use("/game", gameRoutes);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    // Use the HTTP server to listen
     console.log(`Server is running on port ${PORT}`);
 });
 

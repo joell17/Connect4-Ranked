@@ -88,7 +88,6 @@ TO DO:
         - Change log in button to profile button
             - Display user data
             - Sign out button
-    Here's a refined version of your plan for the Online Casual feature:
 
     - Online Casual (done)
         - Matchmaking (done)
@@ -120,7 +119,7 @@ TO DO:
             - Keep track of existing pieces in the board (done)
             - Columns call hook on board, that places piece (done)
 
-    - Online Ranked
+    - Online Ranked (done)
         - Matchmaking
             - Players joins matchmaking
                 - A balanced binary search tree (e.g., AVL tree, Red-Black tree) or a skip list???
@@ -169,19 +168,19 @@ Bugs To Fix:
 ---------------------------------------------
 Future Things To Do When You Have Extra Time:
 ---------------------------------------------
-- Add animations to OnlineGamePieces
-- Make the ghost piece hover above columns
-- Remember game_session as part of user_data to help with page reloading
-- Make it so that closing the window or reloading sends a forfeit and rematchDenied to the other player (done)
-- Get rid of the saving google ids, I feel like that's probably a bad thing to store
-- Add sound effects
-- Add music
-- Add options to change music and sound effects
-- Add more skins
-- Add AI opponent
-    - Simple zero sum game
-    - Expectimax
-        - Adjust expectations for difficulty
-- Add profile pictures
-- Add ranked icons
-- Add option to change username
+    - Add animations to OnlineGamePieces
+    - Make the ghost piece hover above columns
+    - Remember game_session as part of user_data to help with page reloading (avoided)
+    - Make it so that closing the window or reloading sends a forfeit and rematchDenied to the other player (done)
+    - Get rid of the saving google ids, I feel like that's probably a bad thing to store
+    - Add sound effects
+    - Add music
+    - Add options to change music and sound effects
+    - Add more skins
+    - Add AI opponent
+        - Simple zero sum game
+        - Expectimax
+            - Adjust expectations for difficulty
+    - Add profile pictures
+    - Add ranked icons
+    - Add option to change username

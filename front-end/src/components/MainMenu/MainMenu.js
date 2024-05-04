@@ -17,6 +17,7 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
         });
         if (response.ok) {
             const userData = await response.json();
+            console.log('User Data: \n' + userData);
             setUserData(userData); // Set user data state
         } else {
             console.error("Failed to fetch user data");
@@ -66,6 +67,7 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
         if (ws && ws.readyState === WebSocket.OPEN) {
             // Send a message to the server to join matchmaking
             ws.send(JSON.stringify({ action: isRanked ? "joinRankedMatchmaking" : "joinMatchmaking" }));
+            ws.user = userData;
             setIsMatchmaking(true); // Set matchmaking status to true
             setActiveMenuItemContent(activeMenuItemContent);
         } else {

@@ -38,6 +38,7 @@
 .side-menu p {
   font-family: var(--ui-font);
   color: white;
+  padding-left: 5%;
 }
 
 .profile-menu p {

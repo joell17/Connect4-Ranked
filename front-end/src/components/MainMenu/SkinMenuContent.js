@@ -36,8 +36,7 @@ const SkinMenuContent = ({ user_data, fetchUserData }) => {
 
         if (response.ok) {
             // Handle success
-            fetchUserData();
-            console.log("Skins updated successfully");
+            await fetchUserData();
         } else {
             // Handle error
             console.error("Failed to update skins");
