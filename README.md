@@ -81,6 +81,7 @@ npm start
 ```bash
 cd ../frontend
 yarn start
+HTTPS=true yarn start
 ```
 
 ## Usage
