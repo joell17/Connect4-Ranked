@@ -57,7 +57,7 @@ Create a `.env` file in the `backend` directory and add the following variables:
 
 ```
 PORT=3000
-DATABASE_URL=mongodb://localhost:27017/connect4db
+DATABASE_URL=your_database_url
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 SESSION_SECRET=your_secret
