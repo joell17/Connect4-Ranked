@@ -1,2 +1,5 @@
 front-end/yarn.lock
+front-end/.env
 backend/fastAPI_app
+MyKeyPair.pem
+MyKeyPair.pem:Zone.Identifier

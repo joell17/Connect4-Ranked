@@ -27,7 +27,7 @@ const sessionParser = session({
     cookie: {
         secure: true, // Add this line
         httpOnly: true, // You can also add this for extra security
-        sameSite: 'lax'
+        sameSite: 'None'
     }
 });
 
