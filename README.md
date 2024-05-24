@@ -1,5 +1,7 @@
 # Connect 4 Online Game Platform
 
+The project is hosted here: https://super-kitsune-9a88a7.netlify.app/
+
 This repository contains the full source code for the Connect 4 Online Game Platform, a real-time multiplayer game built using React, Node.js, and WebSocket. The game supports both casual and ranked matchmaking modes, enabling players to compete against each other in a classic Connect 4 setup.
 
 ## Features
@@ -47,6 +49,8 @@ This repository contains the full source code for the Connect 4 Online Game Plat
 ```bash
 cd backend
 npm install
+npx prisma generate
+
 cd ../frontend
 yarn install
 ```
@@ -83,10 +87,6 @@ cd ../frontend
 yarn start
 HTTPS=true yarn start
 ```
-
-## Usage
-
-Once both the front end and back end are running, navigate to `https://localhost:3001` to access the game.
 
 ## Contributing
 
