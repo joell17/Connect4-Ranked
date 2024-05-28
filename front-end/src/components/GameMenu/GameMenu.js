@@ -46,7 +46,7 @@ const GameMenu = ({
   }, [currentPlayer]);
 
   return (
-    <div className="game-menu">
+    <div className="local-game-menu">
       {isGameOver ? (
         <>
           <button

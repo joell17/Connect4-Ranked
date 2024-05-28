@@ -23,7 +23,7 @@ const passportConfig = (passport) => {
           const username = profile.emails[0].value.split('@')[0];
           user = await prisma.user_data.create({
             data: {
-              id: profile.id, // Include the id field
+              id: profile.id,
               google_id: profile.id,
               email: profile.emails[0].value,
               date_joined: new Date().toISOString(),

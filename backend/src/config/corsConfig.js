@@ -1,7 +1,9 @@
 const cors = require('cors');
 
+org = process.env.NODE_ENV == "Development" ? ["https://localhost:3001", "https://localhost:3000"] : ["https://super-kitsune-9a88a7.netlify.app"];
+
 const corsConfig = cors({
-  origin: ["http://localhost:3001", "https://localhost:3001", "http://localhost:3000", "https://localhost:3000"], // Your frontend origin
+  origin: org,
   credentials: true, // Allow credentials (cookies) to be sent
 });
 

@@ -20,15 +20,15 @@ const wss = new WebSocket.Server({ server }); // Attach the WebSocket server to 
 
 // Session configuration
 const sessionParser = session({
-    secret: "TY5x8JnSd0",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
     cookie: {
         secure: true, // Add this line
         httpOnly: true, // You can also add this for extra security
-        sameSite: 'None'
-    }
+        sameSite: "None",
+    },
 });
 
 app.use(express.json());
@@ -67,14 +67,22 @@ wss.on("connection", (ws, req) => {
         try {
             const data = JSON.parse(message);
             if (data.action === "joinMatchmaking" && ws.user) {
+                if (data.newUserData) {
+                    ws.user = data.newUserData;
+                    console.log("New user data set!");
+                }
+
                 // Add the user to the matchmaking queue
                 matchmakingService.addToQueue(ws.user);
             } else if (data.action === "joinRankedMatchmaking" && ws.user) {
+                if (data.newUserData) {
+                    ws.user = data.newUserData;
+                    console.log("New user data set!");
+                }
                 matchmakingService.rankedMatchQueue.addPlayer(ws.user, ws);
             }
         } catch (error) {
             console.error("Failed to parse message:", error);
-            // Optionally, send an error message back to the client
         }
     });
 

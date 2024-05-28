@@ -1,15 +1,13 @@
-.game-menu {
+.local-game-menu {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     background-color: var(--color-secondary);
-    padding-top: 1.5%;
-    padding-bottom: 1.5%;
-    padding-left: 12.5%;
-    padding-right: 12.5%;
-    gap: 10%; /* Add space between button and label */
-    border-radius: 10px; /* Optional: add rounded corners */
+    padding: 1.5% 12.5%;
+    gap: 10%;
+    border-radius: 10px;
+    margin-top: 2.5%;
 }
 
 .game-menu-button {
@@ -18,18 +16,19 @@
     background-color: var(--color-tertiary);
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 32px;
-    align-content: center;
-    border: none; /* Remove default button border */
-    border-radius: 10px; /* Optional: add rounded corners */
+    font-size: 24px;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    justify-content: center;
 }
 
-.game-menu label {
-    color: white; /* Set label text color to white */
-    font-size: 32px; /* Adjust label font size as needed */
+.local-game-menu label {
+    color: white;
+    font-size: 24px;
     font-family: "My UI Font", sans-serif;
-    width: 70px; /* Set a fixed width for the label */
-    text-align: center; /* Center the text within the label */
+    width: 100px;
+    text-align: center;
 }
 
 .game-menu-button:hover {

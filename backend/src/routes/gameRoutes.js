@@ -15,7 +15,5 @@ module.exports = (matchmakingService) => {
     res.json({ message: 'Added to matchmaking queue' });
   });
 
-  // Other routes...
-
   return router;
 };

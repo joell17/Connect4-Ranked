@@ -12,7 +12,6 @@
 @media (max-width: 800px) {
     .game {
         justify-content: flex-start;
-        /* Adjust layout for smaller screens */
     }
 }
 

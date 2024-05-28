@@ -17,7 +17,7 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
         });
         if (response.ok) {
             const userData = await response.json();
-            console.log('User Data: \n' + userData);
+            console.log("User Data: \n" + userData);
             setUserData(userData); // Set user data state
         } else {
             console.error("Failed to fetch user data");
@@ -41,14 +41,12 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
                         setGameSession(message.gameSession);
                         navigate("/online-casual");
                         // Navigate to the game page or update the UI as needed
-                    }
-                    else if (message.type === "rankedGameSessionCreated") {
+                    } else if (message.type === "rankedGameSessionCreated") {
                         console.log("Ranked game was found!!!");
                         setIsMatchmaking(false); // Matchmaking finished
                         setActiveMenuItemContent(activeMenuItemContent);
                         setGameSession(message.gameSession);
                         navigate("/online-ranked");
-
                     }
                 } catch (error) {
                     console.error("Received non-JSON message:", event.data);
@@ -63,11 +61,19 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
         }
     }, [ws]);
 
-    const joinMatchmaking = (isRanked=false) => {
+    const joinMatchmaking = (isRanked = false) => {
         if (ws && ws.readyState === WebSocket.OPEN) {
             // Send a message to the server to join matchmaking
-            ws.send(JSON.stringify({ action: isRanked ? "joinRankedMatchmaking" : "joinMatchmaking" }));
+            console.log('User Data on Join: ', userData);
             ws.user = userData;
+            ws.send(
+                JSON.stringify({
+                    action: isRanked
+                        ? "joinRankedMatchmaking"
+                        : "joinMatchmaking",
+                    newUserData: userData,
+                })
+            );
             setIsMatchmaking(true); // Set matchmaking status to true
             setActiveMenuItemContent(activeMenuItemContent);
         } else {

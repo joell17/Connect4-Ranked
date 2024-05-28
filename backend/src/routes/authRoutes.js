@@ -19,7 +19,7 @@ router.get(
         req.session.user = req.user;
 
         // Use the origin from the request headers for the redirect
-        const origin = req.headers.origin || "https://localhost:3001";
+        const origin = process.env.NODE_ENV == "Development" ? "https://localhost:3001" : "https://super-kitsune-9a88a7.netlify.app/";
         res.redirect(`${origin}/`); // Redirect to the origin of the request
     }
 );

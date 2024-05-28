@@ -7,6 +7,7 @@
     padding: 1.5% 12.5%;
     gap: 10%;
     border-radius: 10px;
+    margin-top: 5%;
 }
 
 .game-menu-button {
@@ -15,7 +16,7 @@
     background-color: var(--color-tertiary);
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 24px; /* Adjusted font size */
+    font-size: 24px;
     border: none;
     border-radius: 10px;
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
@@ -24,9 +25,9 @@
 
 .game-menu label {
     color: white;
-    font-size: 24px; /* Adjusted font size */
+    font-size: 24px;
     font-family: "My UI Font", sans-serif;
-    width: 100px; /* Adjusted width */
+    width: 100px;
     text-align: center;
 }
 
