@@ -3,14 +3,20 @@ import "./OnlineGame.css";
 import OnlineBoard from "./OnlineBoard";
 import OnlineGameMenu from "./OnlineGameMenu";
 import { useNavigate } from "react-router-dom";
+import BoardData from "../../utils/BoardData";
 
 const OnlineGame = ({ ws, gameSession, user_data, isRanked }) => {
     const [isActivePlayer, setIsActivePlayer] = useState(false);
     const [isGameOver, setIsGameOver] = useState(false);
     const [winner, setWinner] = useState("Joe");
     const [overlayVisible, setOverlayVisible] = useState(false);
-    const [player1Elo, setPlayer1Elo] = useState(gameSession ? gameSession.player1_elo : 0);
-    const [player2Elo, setPlayer2Elo] = useState(gameSession ? gameSession.player2_elo : 0);
+    const [player1Elo, setPlayer1Elo] = useState(
+        gameSession ? gameSession.player1_elo : 0
+    );
+    const [player2Elo, setPlayer2Elo] = useState(
+        gameSession ? gameSession.player2_elo : 0
+    );
+    const [boardData, setBoardData] = useState(new BoardData());
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -64,7 +70,14 @@ const OnlineGame = ({ ws, gameSession, user_data, isRanked }) => {
                     setPlayer2Elo(message.player2_elo);
                     break;
                 case "rematchAccepted":
-                    // TODO: Going to have to make sure the loser goes first upon rematch
+                    if (message.nonActiveForfeit) {
+                        // Switch turns
+                        setIsActivePlayer((prevState) => {
+                            return !prevState;
+                        });
+                        boardData.currentPlayer =
+                            boardData.currentPlayer === "r" ? "b" : "r";
+                    }
                     setIsGameOver(false);
                     break;
                 case "rematchDenied":
@@ -111,6 +124,8 @@ const OnlineGame = ({ ws, gameSession, user_data, isRanked }) => {
                                       ]
                                     : []
                             }
+                            boardData={boardData}
+                            setBoardData={setBoardData}
                         />
                         <OnlineGameMenu
                             isActivePlayer={isActivePlayer}

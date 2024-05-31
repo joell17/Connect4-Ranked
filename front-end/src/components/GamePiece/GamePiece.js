@@ -11,7 +11,7 @@ const GamePiece = ({player, isGhost, stopPosition }) => {
     }
   }, [stopPosition]);
 
-  const className = `game-piece ${player} ${isGhost ? 'ghost' : ''} ${falling ? 'falling' : ''}`;
+  const className = `game-piece ${player} ${isGhost ? 'ghost' : ''} ${falling && !isGhost? 'falling' : ''}`;
   
   // Use inline style to dynamically set the `--stopPosition` CSS variable
   const style = {

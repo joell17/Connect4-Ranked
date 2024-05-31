@@ -10,11 +10,12 @@ const OnlineBoard = ({
     ws,
     sendMessage,
     playerSkins,
+    boardData,
+    setBoardData
 }) => {
     const [resetCount, setResetCount] = useState(0);
     const columns = 7;
 
-    const [boardData, setBoardData] = useState(new BoardData());
 
     useEffect(() => {
         if (!isGameOver) {

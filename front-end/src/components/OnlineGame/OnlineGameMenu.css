@@ -4,10 +4,13 @@
     align-items: center;
     justify-content: center;
     background-color: var(--color-secondary);
-    padding: 1.5% 12.5%;
-    gap: 10%;
+    padding: 3% 15%;
+    gap: 7%;
     border-radius: 10px;
     margin-top: 5%;
+    height: 10%;
+    width: 100%; /* Ensure the game menu has a fixed width */
+    box-sizing: border-box;
 }
 
 .game-menu-button {
@@ -20,15 +23,18 @@
     border: none;
     border-radius: 10px;
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-    justify-content: center;
+    text-align: center; /* Center the text within the button */
+    flex: none; /* Prevent buttons from stretching */
+    width: 40%;
 }
 
 .game-menu label {
     color: white;
     font-size: 24px;
     font-family: "My UI Font", sans-serif;
-    width: 100px;
-    text-align: center;
+    width: 125px;
+    text-align: center; /* Center the text within the label */
+    flex-shrink: 0; /* Prevent labels from shrinking */
 }
 
 .game-menu-button:hover {

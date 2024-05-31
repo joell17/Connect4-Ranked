@@ -39,6 +39,7 @@ const Board = ({ currentPlayer, togglePlayer, setIsGameOver, isGameOver}) => {
       currentPlayer={currentPlayer}
       columnIndex={col}
       columnHook={columnHook}
+      isGameOver={isGameOver}
     />
   ));
   

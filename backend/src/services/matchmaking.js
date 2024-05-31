@@ -1,9 +1,10 @@
 const GameSession = require("../models/GameSession");
-const RankedMatchQueue = require('../models/RankedMatchQueue');
+const RankedMatchQueue = require("../models/RankedMatchQueue");
 const WebSocket = require("ws");
 
 class MatchmakingService {
     constructor(wss) {
+        this.nonActiveForfeit = false;
         this.queue = [];
         this.gameSessions = {}; // Store active game sessions
         this.wss = wss;
@@ -50,12 +51,11 @@ class MatchmakingService {
         if (gameSession.getCurrentPlayer().id !== player_id) {
             // Not the active player
             gameSession.winHook();
-        }
-        else {
+            this.nonActiveForfeit = true;
+        } else {
             gameSession.switchPlayer();
             gameSession.winHook();
         }
-        
     }
 
     handleMoveAttempt(data) {
@@ -82,11 +82,12 @@ class MatchmakingService {
 
         if (success) {
             // Send message to both players
-            if (!gameSession.sendPlayersMessage("moveMade", { column: column })) {
+            if (
+                !gameSession.sendPlayersMessage("moveMade", { column: column })
+            ) {
                 console.error("Failed to send moveMade message");
-            }
-            else {
-                console.log('Piece placed successfully');
+            } else {
+                console.log("Piece placed successfully");
             }
         } else {
             console.log("Invalid move was attempted. Column: " + column);
@@ -120,7 +121,9 @@ class MatchmakingService {
             }
             gameSession.endSession(); // Clears the timer interval and sets to null
             delete this.gameSessions[game_session_id];
-            console.log("Game session " + game_session_id + " ended and removed.");
+            console.log(
+                "Game session " + game_session_id + " ended and removed."
+            );
             return;
         }
 
@@ -138,11 +141,16 @@ class MatchmakingService {
             console.log("Players accepted rematch.");
             // Reset the game in game session
             gameSession.rematch();
+            const obj = {
+                nonActiveForfeit: this.nonActiveForfeit
+            };
 
             // Notify players
-            if (!gameSession.sendPlayersMessage("rematchAccepted", {})) {
+            if (!gameSession.sendPlayersMessage("rematchAccepted", obj)) {
                 console.error("Failed to notify players of rematch");
             }
+
+            this.nonActiveForfeit = false;
         }
     }
 
@@ -153,7 +161,9 @@ class MatchmakingService {
 
     removeFromQueue(user) {
         // Find the index of the user in the queue
-        const index = this.queue.findIndex(queueUser => queueUser.id === user.id);
+        const index = this.queue.findIndex(
+            (queueUser) => queueUser.id === user.id
+        );
 
         // If the user is found, remove them from the queue
         if (index !== -1) {

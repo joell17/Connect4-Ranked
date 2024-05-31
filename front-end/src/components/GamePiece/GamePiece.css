@@ -13,16 +13,14 @@
 .game-piece {
     position: absolute;
     transition: top 0.25s ease-in;
-    /* Smooth transition for the falling effect */
-    /* Position it within the column */
     width: var(--game-piece-dim);
     height: var(--game-piece-dim);
-    /* Reduce the size of the piece */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 50%;
     margin: 7.5px;
+    align-content: center;
 }
 
 .game-piece.falling {
@@ -41,4 +39,5 @@
 .ghost {
     opacity: 0.5;
     /* Makes the ghost piece semi-transparent */
+    bottom: var(--stopPosition);
 }
