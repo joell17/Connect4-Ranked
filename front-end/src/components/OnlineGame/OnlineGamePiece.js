@@ -9,7 +9,8 @@ const OnlineGamePiece = ({ player, isGhost, playerSkins }) => {
     backgroundImage: `url(${skinPath})`
   }
 
-  const className = 'game-piece';
+  const className = `online-game-piece ${isGhost ? 'ghost' : 'falling'}`;
+
 
   return <div className={className} style={style}></div>;
 };

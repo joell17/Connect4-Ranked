@@ -58,7 +58,7 @@ const GameMenu = ({
           </button>
           <button
             onClick={() => navigate('/')}
-            className="game-menu-button"
+            className="local-game-menu-button"
             aria-label="Main Menu"
           >
             Menu

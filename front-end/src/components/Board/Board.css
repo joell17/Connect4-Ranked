@@ -6,6 +6,8 @@
     background-color: rgb(139, 139, 139);
     padding: 20px;
     border-radius: 10px;
+    z-index: 10;
+    position: relative;
   }
   
   .row {

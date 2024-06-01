@@ -1,5 +1,6 @@
 .online-game-piece {
     position: absolute;
+    transition: top 0.25s ease-in;
     width: var(--game-piece-dim);
     height: var(--game-piece-dim);
     background-size: cover;
@@ -8,6 +9,11 @@
     border-radius: 50%;
     margin: 7.5px;
     align-content: center;
+    z-index: 0;
+}
+
+.online-game-piece.falling {
+    animation: fall 0.5s ease-in forwards;
 }
 
 /* Specific styles for player pieces and ghost pieces */
@@ -21,4 +27,13 @@
 
 .ghost {
     opacity: 0.5;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
