@@ -192,7 +192,6 @@ const MainMenu = ({ userData, setUserData, ws, setGameSession }) => {
                             <p>Rank: {userData.rank}</p>
                             <p>Wins: {userData.wins}</p>
                             <p>Losses: {userData.losses}</p>
-                            <p>Games Played: {userData.games_played}</p>
                             <p>ELO: {userData.elo}</p>
                             <button
                                 onClick={handleLogout}
