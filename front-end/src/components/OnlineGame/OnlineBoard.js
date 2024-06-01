@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../Board/Board.css";
 import OnlineColumn from "./OnlineColumn";
-import BoardData from "../../utils/BoardData";
 
 const OnlineBoard = ({
     isActivePlayer,

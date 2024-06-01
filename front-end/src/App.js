@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainMenu from "./components/MainMenu/MainMenu";
 import LocalGame from "./components/LocalGame/LocalGame";
 import OnlineGame from "./components/OnlineGame/OnlineGame";
