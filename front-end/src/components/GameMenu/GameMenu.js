@@ -51,7 +51,7 @@ const GameMenu = ({
         <>
           <button
             onClick={() => {setIsGameOver(false);}}
-            className="game-menu-button"
+            className="local-game-menu-button"
             aria-label="Rematch Game"
           >
             Rematch
@@ -69,7 +69,7 @@ const GameMenu = ({
         <>
           <button
             onClick={() => makeCurrentPlayerLose()}
-            className="game-menu-button"
+            className="local-game-menu-button"
             aria-label="Forfeit Game"
           >
             Forfeit
