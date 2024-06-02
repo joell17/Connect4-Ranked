@@ -10,35 +10,26 @@ This repository contains the full source code for the Connect 4 Online Game Plat
 - **Matchmaking System:** Both casual and ranked matchmaking systems allow players to find opponents with similar skills.
 - **User Authentication:** Google OAuth for secure login.
 - **Player Ranking:** Elo-based ranking system to ensure competitive integrity in ranked matches.
-- **Customizable Skins:** Players can customize their game pieces with skins they've unlocked.
+- **Customizable Skins:** Players can customize their game pieces with unlocked skins.
 - **Responsive Design:** Compatible with both desktop and mobile browsers.
 
 ## Technologies Used
 
 - **Frontend:** React
-- **Backend:** Node.js, Express
-- **Database:** MongoDB with Mongoose for data management
+- **Backend:** Express.js
+- **Database:** MongoDB
 - **Authentication:** Passport.js with Google OAuth
 - **Real-Time Communication:** WebSocket
-- **Security:** HTTPS setup with Nginx as a reverse proxy
 - **Session Management:** express-session with MongoStore
-- **Environment Management:** dotenv for environment variable management
 
 ## Setup and Installation
-
-### Prerequisites
-
-- Node.js
-- MongoDB
-- Nginx
-- An HTTPS certificate for secure communication
 
 ### Installation Steps
 
 1. **Clone the repository**
    ```bash
-   git clone [https://github.com/yourgithubusername/connect4-online.git](https://github.com/joell17/Connect4-Ranked.git)
-   cd connect4-online
+   git clone https://github.com/joell17/Connect4-Ranked.git
+   cd Connect4-Ranked
    ```
 
 
@@ -51,7 +42,7 @@ cd backend
 npm install
 npx prisma generate
 
-cd ../frontend
+cd ../front-end
 yarn install
 ```
 
@@ -67,11 +58,14 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 SESSION_SECRET=your_secret
 KEY_PATH=path_to_your_private.key
 CERT_PATH=path_to_your_certificate.crt
+NODE_ENV="Development"
 ```
 
-## Configure Nginx
+Create a `.env` file in the `front-end` directory and add the following variables:
 
-Set up Nginx as a reverse proxy to direct traffic to your application and handle HTTPS.
+```
+NODE_ENV="development"
+```
 
 ## Start the backend server
 
