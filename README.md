@@ -37,7 +37,7 @@ This repository contains the full source code for the Connect 4 Online Game Plat
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourgithubusername/connect4-online.git
+   git clone [https://github.com/yourgithubusername/connect4-online.git](https://github.com/joell17/Connect4-Ranked.git)
    cd connect4-online
    ```
 
